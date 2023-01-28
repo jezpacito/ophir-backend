@@ -12,16 +12,22 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    const ROLE_ADMIN = 'Admin';
+    const ROLE_DIRECTOR = 'Director';
+    const ROLE_MANAGER= 'Manager';
+
+    const ROLE_ENCODER = 'Encoder';
+    
+    const ROLE_AGENT = 'Agent';
+    const ROLE_PLANHOLDER = 'Planholder';
+
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $fillable = [
-        'name',
-        'email',
-        'password',
-    ];
+    protected $guarded = [];
 
     /**
      * The attributes that should be hidden for serialization.
@@ -41,4 +47,16 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function role(){
+        return $this->belongsTo(Role::class);
+    }
+
+    public function branch(){
+        return $this->belongsTo(Branch::class);
+    }
+
+    public function staffs(){
+        return $this->hasMany(Staff::class);
+    }
 }
