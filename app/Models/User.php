@@ -13,14 +13,16 @@ class User extends Authenticatable
     use HasApiTokens, HasFactory, Notifiable;
 
     const ROLE_ADMIN = 'Admin';
+
     const ROLE_DIRECTOR = 'Director';
-    const ROLE_MANAGER= 'Manager';
+
+    const ROLE_MANAGER = 'Manager';
 
     const ROLE_ENCODER = 'Encoder';
-    
-    const ROLE_AGENT = 'Agent';
-    const ROLE_PLANHOLDER = 'Planholder';
 
+    const ROLE_AGENT = 'Agent';
+
+    const ROLE_PLANHOLDER = 'Planholder';
 
     /**
      * The attributes that are mass assignable.
@@ -48,15 +50,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role(){
+    public function role()
+    {
         return $this->belongsTo(Role::class);
     }
 
-    public function branch(){
+    public function branch()
+    {
         return $this->belongsTo(Branch::class);
     }
 
-    public function staffs(){
+    public function staffs()
+    {
         return $this->hasMany(Staff::class);
     }
 }

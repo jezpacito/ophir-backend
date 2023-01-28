@@ -9,15 +9,18 @@ class Staff extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['type','user_id'];
+    protected $fillable = ['type', 'user_id'];
 
     const STAFF_MANAGER = 'Manager';
+
     const STAFF_AGENT = 'Agent';
+
     const STAFF_DIRECTOR = 'Director';
+
     const STAFF_ENCODER = 'Encoder';
 
-
-    public function user(){
+    public function user()
+    {
         $this->belongsTo(User::class);
     }
 }
