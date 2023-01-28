@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('account_type')->unique()->index();
-            $table->string('userame')->unique();
-            $table->string('lastname')->index();
-            $table->string('firstname')->index();
+            $table->string('account_type')->unique()->index()->nullable();
+            $table->string('userame')->unique()->nullable();
+            $table->string('lastname')->index()->nullable();
+            $table->string('firstname')->index()->nullable();
             $table->string('middlename')->nullable()->index();
             $table->string('gender')->nullable();
             $table->date('birthdate')->nullable();
@@ -47,7 +47,6 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-
             $table->rememberToken();
             $table->timestamps();
         });
