@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controller\Api;
 
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -31,6 +32,20 @@ class CreateSanctumTokenTest extends TestCase
         ];
 
         $response = $this->post('api/login', $data, ['Accept' => 'application/json']);
+        $response->dump();
         $response->assertStatus(200);
+    }
+
+    
+    /**
+     *  @test
+     *
+     * @return void
+     */
+    public function test_access_protected_route()
+    {
+        $response = $this->get('api/branches', ['Accept' => 'application/json']);
+        $response->dump();
+        $response->assertStatus(401);
     }
 }
