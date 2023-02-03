@@ -59,7 +59,6 @@ class StaffController extends Controller
      */
     public function destroy(Staff $staff)
     {
-        dd($staff);
         $staff->delete();
 
         return response()->json([
