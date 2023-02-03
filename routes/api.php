@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\SanctumController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\StaffController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -24,4 +25,5 @@ Route::post('login', [SanctumController::class, 'store']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('branches', BranchController::class);
+    Route::apiResource('staffs', StaffController::class);
 });
