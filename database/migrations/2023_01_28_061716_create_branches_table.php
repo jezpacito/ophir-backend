@@ -17,6 +17,7 @@ return new class extends Migration
             $table->id();
             $table->integer('branch_number')->unique();
             $table->string('name');
+            $table->text('address')->nullable();
             $table->timestamps();
         });
     }

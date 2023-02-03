@@ -15,7 +15,7 @@ use Laravel\Sanctum\HasApiTokens;
  * @property int|null $role_id
  * @property int|null $branch_id
  * @property string $account_type
- * @property string $userame
+ * @property string $username
  * @property string $lastname
  * @property string $firstname
  * @property string|null $middlename

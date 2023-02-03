@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('role_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
             $table->string('account_type')->unique()->index()->nullable();
-            $table->string('userame')->unique()->nullable();
+            $table->string('username')->unique()->nullable();
             $table->string('lastname')->index()->nullable();
             $table->string('firstname')->index()->nullable();
             $table->string('middlename')->nullable()->index();
