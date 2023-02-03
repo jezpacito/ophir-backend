@@ -25,7 +25,7 @@ class BranchRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'address' => 'sometimes|string|max:600'
+            'address' => 'sometimes|string|max:600',
         ];
     }
 }

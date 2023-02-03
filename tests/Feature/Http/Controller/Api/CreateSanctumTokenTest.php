@@ -2,7 +2,6 @@
 
 namespace Tests\Feature\Http\Controller\Api;
 
-use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -36,7 +35,6 @@ class CreateSanctumTokenTest extends TestCase
         $response->assertStatus(200);
     }
 
-    
     /**
      *  @test
      *

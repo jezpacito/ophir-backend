@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\BranchRequest;
 use App\Http\Resources\BranchResource;
 use App\Models\Branch;
-use Illuminate\Http\Request;
 
 class BranchController extends Controller
 {
@@ -16,7 +15,9 @@ class BranchController extends Controller
      */
     public function index()
     {
-        return BranchResource::collection(Branch::query()->get());
+        return response()->json([
+            'data' => BranchResource::collection(Branch::query()->get()),
+        ]);
     }
 
     /**
@@ -25,20 +26,12 @@ class BranchController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(BranchRequest $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return response()->json([
+            'data' => new BranchResource(Branch::create($request->validated())),
+            'message' => 'success',
+        ], 201);
     }
 
     /**
@@ -48,9 +41,14 @@ class BranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(BranchRequest $request, Branch $branch)
     {
-        //
+        $branch->update($request->validated());
+
+        return response()->json([
+            'data' => new BranchResource($branch),
+            'message' => 'success',
+        ], 200);
     }
 
     /**
@@ -59,8 +57,12 @@ class BranchController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Branch $branch)
     {
-        //
+        $branch->delete();
+
+        return response()->json([
+            'message' => 'branch has been deleted',
+        ]);
     }
 }

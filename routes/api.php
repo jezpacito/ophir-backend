@@ -23,7 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('login', [SanctumController::class, 'store']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-
-Route::apiResource('branches', BranchController::class);
-
+    Route::apiResource('branches', BranchController::class);
 });
