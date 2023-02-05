@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use Hash;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -151,8 +153,13 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
-    public function staffs()
+public function staffs()
+{
+    return $this->hasMany(Staff::class);
+}
+
+    public function setPasswordAttribute($value)
     {
-        return $this->hasMany(Staff::class);
+        $this->attributes['password'] = Hash::make($value);
     }
 }
