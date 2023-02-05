@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\SanctumController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StaffController;
+use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -28,4 +29,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('branches', BranchController::class);
     Route::apiResource('staffs', StaffController::class);
     Route::apiResource('roles', RoleController::class);
+    Route::apiResource('users', UserController::class);
 });
