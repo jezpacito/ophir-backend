@@ -30,7 +30,6 @@ jobs:
       
     - name: Run composer install
       run: |
-          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_PASSWORD }}
           composer install -n --prefer-dist
           
     - name: Prepare Laravel Application
