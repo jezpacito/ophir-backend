@@ -57,7 +57,7 @@ jobs:
 
     - name: Run migrate and seed database
       run: |
-          mysql -uroot -proot -e "create database ophir"
+          mysql -uroot -proot -e "create database laravel"
           php artisan migrate:fresh --seed
     - name: Run tests
       run: ./vendor/bin/phpunit --testdox
