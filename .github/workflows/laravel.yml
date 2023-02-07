@@ -1,10 +1,12 @@
-name: Test and Deploy
+name: Test And Deploy
 
 on:
-  push:
-    branches: [ "master" ]
   pull_request:
-    branches: [ "master" ]
+    types: [ opened, edited, synchronize ]
+  push:
+    branches:
+      - master
+      - develop
 
 jobs:
   laravel-tests:
@@ -14,22 +16,58 @@ jobs:
     steps:
     - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
       with:
-        php-version: '8.0'
+        php-version: '8.1'
     - uses: actions/checkout@v3
-    - name: Copy .env
-      run: php -r "file_exists('.env') || copy('.env.example', '.env');"
-    - name: Install Dependencies
-      run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
-    - name: Generate key
-      run: php artisan key:generate
+    
+    - name: Run MySQL
+      run: sudo systemctl start mysql.service
+      
+    - name: Cache composer dependencies
+      uses: actions/cache@v2
+      with:
+        path: vendor
+        key: composer-${{ hashFiles('composer.lock') }}
+      
+    - name: Run composer install
+      run: |
+          composer config http-basic.nova.laravel.com ${{ secrets.NOVA_USERNAME }} ${{ secrets.NOVA_PASSWORD }}
+          composer install -n --prefer-dist
+          
+    - name: Prepare Laravel Application
+      run: |
+          cp .env.example .env
+          php artisan key:generate
+      
+    - name: Run Laravel Pint (code checker)
+      run: ./vendor/bin/pint --test
+      
+    - name: Security checker
+      run: php ./vendor/bin/security-checker security:check composer.lock
+      
     - name: Directory Permissions
       run: chmod -R 777 storage bootstrap/cache
-    - name: Create Database
+      
+    - name: Cache npm dependencies
+      uses: actions/cache@v1
+      with:
+          path: node_modules
+          key: package-${{ hashFiles('package-lock.json') }}
+
+    - name: Run NPM
+      run: npm install && npm run build
+
+    - name: Run migrate and seed database
       run: |
-        mkdir -p database
-        touch database/database.sqlite
-    - name: Execute tests (Unit and Feature tests) via PHPUnit
+          mysql -uroot -proot -e "create database contact_plus"
+          php artisan migrate:fresh --seed
+    - name: Run tests
+      run: ./vendor/bin/phpunit --testdox
       env:
-        DB_CONNECTION: sqlite
-        DB_DATABASE: database/database.sqlite
-      run: vendor/bin/phpunit
+          APP_ENV: testing
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@master
+      if: failure()
+      with:
+          name: Logs
+          path: ./storage/logs
