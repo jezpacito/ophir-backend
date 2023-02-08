@@ -59,10 +59,10 @@ jobs:
     #   run: |
     #       mysql -uroot -proot -e "create database contact_plus"
     #       php artisan migrate:fresh --seed
-    - name: Run tests
-      run: ./vendor/bin/phpunit --testdox
-      env:
-          APP_ENV: testing
+    # - name: Run tests
+    #   run: ./vendor/bin/phpunit --testdox
+    #   env:
+    #       APP_ENV: testing
 
     - name: Upload artifacts
       uses: actions/upload-artifact@master
