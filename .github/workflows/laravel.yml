@@ -55,10 +55,17 @@ jobs:
     - name: Run NPM
       run: npm install && npm run build
 
+<<<<<<< HEAD
     # - name: Run migrate and seed database
     #   run: |
     #       mysql -uroot -proot -e "create database contact_plus"
     #       php artisan migrate:fresh --seed
+=======
+    - name: Run migrate and seed database
+      run: |
+          mysql -uroot -proot -e "create database laravel"
+          php artisan migrate:fresh --seed
+>>>>>>> 06c187ad029b3bb3a652f37dd58fa9b8802e8d03
     - name: Run tests
       run: ./vendor/bin/phpunit --testdox
       env:
