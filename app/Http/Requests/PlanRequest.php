@@ -29,6 +29,7 @@ class PlanRequest extends FormRequest
             'price' => 'sometimes|integer|min:0',
             'year_period' => 'sometimes|min:0',
             'is_active' => 'sometimes|boolean',
+            'is_transferrable' => 'sometimes|boolean',
         ];
     }
 }

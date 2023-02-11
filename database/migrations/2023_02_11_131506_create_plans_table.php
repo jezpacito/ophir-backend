@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->string('year_period')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->boolean('is_transferrable')->default(true);
             $table->timestamps();
         });
     }
