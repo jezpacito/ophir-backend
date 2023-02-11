@@ -23,7 +23,7 @@ class Plan extends Model
         'price',
         'year_period',
         'is_active',
-        'is_transferrable'
+        'is_transferrable',
     ];
 
     public static $plans = [
