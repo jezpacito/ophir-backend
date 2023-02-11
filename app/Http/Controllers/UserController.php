@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Notifications\SendCredentials;
+use DB;
 use Illuminate\Http\Request;
+use Str;
 
 class UserController extends Controller
 {
@@ -29,10 +32,20 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+        $password = Str::random(12);
+
+        $user = DB::transaction(function () use ($password, $request) {
+            $user = User::create(array_merge($request->all(), [
+                'password' => $password,
+            ]));
+            $credentials = ['username' => $user->username, 'password' => $password];
+            $user->notify(new SendCredentials($credentials));
+
+            return $user;
+        });
+
         return response()->json([
-            'data' => new UserResource(User::create(array_merge($request->all(), [
-                'password' => 'hello123',
-            ]))),
+            'data' => new UserResource($user),
             'message' => 'success',
         ], 201);
     }
