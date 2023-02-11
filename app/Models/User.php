@@ -115,6 +115,8 @@ class User extends Authenticatable
 
     const ROLE_AGENT = 'Agent';
 
+    const ROLE_BRANCH_ADMIN = 'Branch Admin';
+
     const ROLE_PLANHOLDER = 'Planholder';
 
     /**
@@ -156,5 +158,21 @@ class User extends Authenticatable
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    public function setLastnameAttribute($value)
+    {
+        $this->attributes['lastname'] = $value;
+
+        /** username format would be first letter of firstname and full middlename then .lastname
+         * ex. Fullname = Juan Santos Abad
+         * username: jsantos.abad
+         */
+        $username = strtolower(substr($this->attributes['firstname'], 0, 1).$this->attributes['middlename'].'.'.$value);
+        $query = self::where('username', $username);
+        if ($query->exists()) {
+            $username = $username.$query->count();
+        }
+        $this->attributes['username'] = $username;
     }
 }
