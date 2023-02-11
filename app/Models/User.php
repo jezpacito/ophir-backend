@@ -175,4 +175,9 @@ class User extends Authenticatable
         }
         $this->attributes['username'] = $username;
     }
+
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class, 'user_plan')->withPivot('is_active');
+    }
 }

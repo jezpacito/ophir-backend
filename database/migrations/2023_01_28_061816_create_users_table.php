@@ -34,7 +34,6 @@ return new class extends Migration
             $table->string('sponsor')->nullable();
             $table->string('sss_number')->nullable()->index();
             $table->string('tin_number')->nullable()->index();
-
             $table->string('status')->nullable()->index();
             $table->string('facebook')->nullable();
             $table->string('messenger')->nullable();
