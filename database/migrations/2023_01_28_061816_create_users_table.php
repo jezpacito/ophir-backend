@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('role_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
-            $table->string('account_type')->unique()->index()->nullable();
             $table->string('username')->unique()->nullable();
             $table->string('lastname')->index()->nullable();
             $table->string('firstname')->index()->nullable();
@@ -35,11 +34,7 @@ return new class extends Migration
             $table->string('sponsor')->nullable();
             $table->string('sss_number')->nullable()->index();
             $table->string('tin_number')->nullable()->index();
-            $table->string('ben_firstname')->nullable();
-            $table->string('ben_middlename')->nullable();
-            $table->string('ben_lastname')->nullable();
-            $table->string('ben_relationship')->nullable();
-            $table->string('ben_birthdate')->nullable();
+  
             $table->string('status')->nullable()->index();
             $table->string('facebook')->nullable();
             $table->string('messenger')->nullable();
