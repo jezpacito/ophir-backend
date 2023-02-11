@@ -25,8 +25,12 @@ class UserRequest extends FormRequest
     {
         if ($this->isMethod('post')) {
             return [
-                'username' => 'required|unique:users,username|string|max:255',
+                'firstname' => 'required|string|max:255',
+                'middlename' => 'required|string|max:255',
+                'lastname' => 'required|string|max:255',
                 'email' => 'required|unique:users,email|string|max:255',
+                'role_id' => 'required|exists:roles,id',
+                'branch_id' => 'nullable|exists:branches,id',
             ];
         }
     }

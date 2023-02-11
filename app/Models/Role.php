@@ -35,7 +35,6 @@ class Role extends Model
 
     const ROLE_ADMIN = 'Admin';
 
-
     const ROLE_DIRECTOR = 'Director';
 
     const ROLE_MANAGER = 'Manager';
@@ -54,7 +53,6 @@ class Role extends Model
         self::ROLE_MANAGER,
         self::ROLE_ENCODER,
         self::ROLE_AGENT,
-        self::ROLE_PLANHOLDER,
         self::ROLE_BRANCH_ADMIN,
         self::ROLE_PLANHOLDER,
     ];

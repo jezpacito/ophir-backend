@@ -31,7 +31,7 @@ class UserController extends Controller
     {
         return response()->json([
             'data' => new UserResource(User::create(array_merge($request->all(), [
-                'password' => 'password',
+                'password' => 'hello123',
             ]))),
             'message' => 'success',
         ], 201);
