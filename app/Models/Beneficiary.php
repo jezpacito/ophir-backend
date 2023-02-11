@@ -11,9 +11,24 @@ class Beneficiary extends Model
 
     protected $fillable = [
         'firstname',
-        'firstname',
-        'firstname',
-        'firstname',
-        'firstname',
+        'middlename',
+        'lastname',
+        'relationship',
+        'birthdate',
+        'user_id',
     ];
+
+    const ALLOWED_BENEFICIARIES = 2;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function countBenefiaries($user)
+    {
+        $count = self::where('user_id', $user->id)->count();
+
+        return $count >= self::ALLOWED_BENEFICIARIES;
+    }
 }
