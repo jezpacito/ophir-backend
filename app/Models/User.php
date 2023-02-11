@@ -115,6 +115,8 @@ class User extends Authenticatable
 
     const ROLE_AGENT = 'Agent';
 
+    const ROLE_BRANCH_ADMIN = 'Branch Admin';
+
     const ROLE_PLANHOLDER = 'Planholder';
 
     /**

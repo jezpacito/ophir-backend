@@ -35,7 +35,6 @@ class Role extends Model
 
     const ROLE_ADMIN = 'Admin';
 
-    const ROLE_BRANCH = 'Branch';
 
     const ROLE_DIRECTOR = 'Director';
 
@@ -44,6 +43,8 @@ class Role extends Model
     const ROLE_ENCODER = 'Encoder';
 
     const ROLE_AGENT = 'Agent';
+
+    const ROLE_BRANCH_ADMIN = 'Branch Admin';
 
     const ROLE_PLANHOLDER = 'Planholder';
 
@@ -54,7 +55,8 @@ class Role extends Model
         self::ROLE_ENCODER,
         self::ROLE_AGENT,
         self::ROLE_PLANHOLDER,
-        self::ROLE_BRANCH,
+        self::ROLE_BRANCH_ADMIN,
+        self::ROLE_PLANHOLDER,
     ];
 
     public function users()
