@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\SanctumController;
+use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StaffController;
@@ -30,4 +31,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('staffs', StaffController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('users', UserController::class);
+    Route::apiResource('beneficiaries', BeneficiaryController::class);
 });
