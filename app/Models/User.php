@@ -153,11 +153,6 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
-public function staffs()
-{
-    return $this->hasMany(Staff::class);
-}
-
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);

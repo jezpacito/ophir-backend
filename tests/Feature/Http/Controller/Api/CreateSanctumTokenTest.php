@@ -26,12 +26,11 @@ class CreateSanctumTokenTest extends TestCase
     public function test_generate_sanctum_token()
     {
         $data = [
-            'username' => 'superadmin',
+            'username' => 'Admin',
             'password' => 'password',
         ];
 
         $response = $this->post('api/login', $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 
@@ -43,7 +42,6 @@ class CreateSanctumTokenTest extends TestCase
     public function test_access_protected_route()
     {
         $response = $this->get('api/branches', ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(401);
     }
 }

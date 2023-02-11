@@ -32,7 +32,6 @@ class BranchControllerTest extends TestCase
         ];
         $response = $this->post('api/branches', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
-        $response->dump();
 
         $this->assertDatabaseHas('branches', [
             'name' => $data['name'],
@@ -57,7 +56,6 @@ class BranchControllerTest extends TestCase
 
         $response = $this->put("api/branches/$branch->id", $data, ['Accept' => 'application/json']);
         $response->assertStatus(200);
-        $response->dump();
 
         $this->assertDatabaseHas('branches', [
             'name' => $data['name'],
@@ -78,7 +76,6 @@ class BranchControllerTest extends TestCase
 
         $response = $this->delete("api/branches/$branch->id", ['Accept' => 'application/json']);
         $response->assertStatus(200);
-        $response->dump();
 
         $this->assertModelMissing($branch);
     }
