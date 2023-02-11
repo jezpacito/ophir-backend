@@ -55,14 +55,14 @@ jobs:
     - name: Run NPM
       run: npm install && npm run build
 
-    # - name: Run migrate and seed database
-    #   run: |
-    #       mysql -uroot -proot -e "create database contact_plus"
-    #       php artisan migrate:fresh --seed
-    # - name: Run tests
-    #   run: ./vendor/bin/phpunit --testdox
-    #   env:
-    #       APP_ENV: testing
+    - name: Run migrate and seed database
+      run: |
+          mysql -uroot -proot -e "create database ophir_db"
+          php artisan migrate:fresh --seed
+    - name: Run tests
+      run: ./vendor/bin/phpunit 
+      env:
+          APP_ENV: local
 
     - name: Upload artifacts
       uses: actions/upload-artifact@master
