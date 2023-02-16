@@ -32,7 +32,7 @@ class UserControllerTest extends TestCase
             'firstname' => $this->faker()->firstName(),
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
-            'email' => $this->faker()->email(),
+            'email' => 'test@test.com',
             'role_id' => $role->id,
 
         ];
