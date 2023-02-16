@@ -26,7 +26,6 @@ class UserControllerTest extends TestCase
     public function test_add_user()
     {
         $this->actingAs(User::factory()->create());
-       
 
         $data = [
             'firstname' => $this->faker()->firstName(),
@@ -42,8 +41,7 @@ class UserControllerTest extends TestCase
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
-            'role_id' =>Role::ofName($data['role'])->id
+            'role_id' => Role::ofName($data['role'])->id,
         ]);
     }
 }
- 

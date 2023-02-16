@@ -33,16 +33,15 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
-    
         $password = Str::random(12);
 
         $user = DB::transaction(function () use ($password, $request) {
             $user = User::create(array_merge($request->except('role'), [
                 'password' => $password,
-                'role_id' =>Role::ofName($request->role)->id
+                'role_id' => Role::ofName($request->role)->id,
             ]));
-        $credentials = ['username' => $user->username, 'password' => $password];
-        $user->notify(new SendCredentials($credentials));
+            $credentials = ['username' => $user->username, 'password' => $password];
+            $user->notify(new SendCredentials($credentials));
 
             return $user;
         });

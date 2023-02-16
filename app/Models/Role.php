@@ -50,7 +50,7 @@ class Role extends Model
     public static $role_users = [
         self::ROLE_ADMIN,
         self::ROLE_BRANCH_ADMIN,
-      
+
     ];
 
     public static $roles = [
@@ -74,6 +74,6 @@ class Role extends Model
      */
     public function scopeOfName($query, $name)
     {
-            return $query->where('name', $name)->first();
+        return $query->where('name', $name)->first();
     }
 }

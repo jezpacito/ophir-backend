@@ -28,8 +28,8 @@ return new class extends Migration
             ]);
         }
 
-         /** @var Role $roles */
-         foreach (Role::get() as $roles) {
+        /** @var Role $roles */
+        foreach (Role::get() as $roles) {
             User::factory()->create([
                 'role_id' => $role_users->id,
                 'username' => $role_users->name,
