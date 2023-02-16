@@ -19,11 +19,20 @@ return new class extends Migration
             '--force' => true,
         ]);
 
-        /** @var Role $roles */
-        foreach (Role::get() as $role) {
+        /** @var Role $roles_users */
+        foreach (Role::get() as $role_users) {
             User::factory()->create([
-                'role_id' => $role->id,
-                'username' => $role->name,
+                'role_id' => $role_users->id,
+                'username' => $role_users->name,
+                'password' => 'password',
+            ]);
+        }
+
+         /** @var Role $roles */
+         foreach (Role::get() as $roles) {
+            User::factory()->create([
+                'role_id' => $role_users->id,
+                'username' => $role_users->name,
                 'password' => 'password',
             ]);
         }

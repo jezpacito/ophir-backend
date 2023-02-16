@@ -47,18 +47,33 @@ class Role extends Model
 
     const ROLE_PLANHOLDER = 'Planholder';
 
-    public static $roles = [
+    public static $role_users = [
         self::ROLE_ADMIN,
+        self::ROLE_BRANCH_ADMIN,
+      
+    ];
+
+    public static $roles = [
         self::ROLE_DIRECTOR,
         self::ROLE_MANAGER,
         self::ROLE_ENCODER,
         self::ROLE_AGENT,
-        self::ROLE_BRANCH_ADMIN,
         self::ROLE_PLANHOLDER,
     ];
 
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    /**
+     * Scope a query to only include popular users.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfName($query, $name)
+    {
+            return $query->where('name', $name)->first();
     }
 }

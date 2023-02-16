@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
                 'middlename' => 'required|string|max:255',
                 'lastname' => 'required|string|max:255',
                 'email' => 'required|unique:users,email|string|max:255',
-                'role_id' => 'required|exists:roles,id',
+                'role' => 'required|string|exists:roles,name',
                 'branch_id' => 'nullable|exists:branches,id',
             ];
         }

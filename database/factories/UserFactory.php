@@ -19,6 +19,9 @@ class UserFactory extends Factory
     {
         return [
             'branch_id' => 1,
+            'firstname' => fake()->firstName(),
+            'middlename' => fake()->lastName(),
+            'lastName' => fake()->lastName(),
             'role_id' => 1,
             'username' => fake()->userName(),
             'email' => fake()->unique()->safeEmail(),

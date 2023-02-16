@@ -26,15 +26,14 @@ class UserControllerTest extends TestCase
     public function test_add_user()
     {
         $this->actingAs(User::factory()->create());
-        $role = Role::first();
+       
 
         $data = [
             'firstname' => $this->faker()->firstName(),
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
             'email' => 'test@test.com',
-            'role_id' => $role->id,
-
+            'role' => Role::ROLE_PLANHOLDER,
         ];
         $response = $this->post('api/users', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
@@ -43,7 +42,8 @@ class UserControllerTest extends TestCase
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
-            'role_id' => $data['role_id'],
+            'role_id' =>Role::ofName($data['role'])->id
         ]);
     }
 }
+ 

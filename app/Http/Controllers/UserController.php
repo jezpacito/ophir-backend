@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
+use App\Models\Role;
 use App\Models\User;
 use App\Notifications\SendCredentials;
 use DB;
@@ -32,14 +33,16 @@ class UserController extends Controller
      */
     public function store(UserRequest $request)
     {
+    
         $password = Str::random(12);
 
         $user = DB::transaction(function () use ($password, $request) {
-            $user = User::create(array_merge($request->all(), [
+            $user = User::create(array_merge($request->except('role'), [
                 'password' => $password,
+                'role_id' =>Role::ofName($request->role)->id
             ]));
-            $credentials = ['username' => $user->username, 'password' => $password];
-            $user->notify(new SendCredentials($credentials));
+        $credentials = ['username' => $user->username, 'password' => $password];
+        $user->notify(new SendCredentials($credentials));
 
             return $user;
         });
