@@ -14,7 +14,7 @@ class UserObserver
      */
     public function created(User $user)
     {
-        if (! $user->role->name === User::ROLE_ADMIN || User::ROLE_BRANCH_ADMIN) {
+        if (! $user->role->name === User::ROLE_ADMIN || $user->role->name === User::ROLE_BRANCH_ADMIN) {
             $username = strtolower(substr($user->firstname, 0, 1).$user->middlename.'.'.$user->lastname);
             $query = User::where('username', $username);
             if ($query->exists()) {

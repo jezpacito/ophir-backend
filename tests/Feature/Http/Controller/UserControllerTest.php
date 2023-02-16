@@ -32,7 +32,7 @@ class UserControllerTest extends TestCase
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
             'email' => 'test@test.com',
-            'role' => Role::ROLE_PLANHOLDER,
+            'role' => Role::ROLE_ENCODER,
         ];
         $response = $this->post('api/users', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
