@@ -18,6 +18,7 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('plan_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('is_active')->default(true);
+            $table->foreignId('owner_id')->nullable()->constrained()->nullOnDelete();
             $table->timestamps();
         });
     }

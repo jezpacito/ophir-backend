@@ -54,6 +54,6 @@ class Plan extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_plan')->withPivot('is_active');
+        return $this->belongsToMany(User::class, 'user_plan')->withPivot('is_active','owner_id');
     }
 }
