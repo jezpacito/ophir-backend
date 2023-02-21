@@ -17,6 +17,17 @@ class Plan extends Model
 
     const ST_CLAIRE = 'St. Claire';
 
+    /** BILLING METHODS */
+    const ANNUAL = 'Annual';
+
+    const SEMI_ANNUAL = 'Semi-Annually';
+
+    const QUARTERLY = 'Quarterly';
+
+    const YEARLY = 'Yearly';
+
+    const MONTHLY = 'Monthly';
+
     protected $fillable = [
         'name',
         'description',
@@ -24,12 +35,21 @@ class Plan extends Model
         'year_period',
         'is_active',
         'is_transferrable',
+        'billing_method',
     ];
 
     public static $plans = [
         self::ST_MERCY,
         self::ST_FERDINAND,
         self::ST_CLAIRE,
+    ];
+
+    public static $billingMethod = [
+        self::ANNUAL,
+        self::SEMI_ANNUAL,
+        self::QUARTERLY,
+        self::YEARLY,
+        self::MONTHLY,
     ];
 
     public function users()
