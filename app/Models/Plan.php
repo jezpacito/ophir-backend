@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
+ *
  * @method static \Database\Factories\PlanFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Plan newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Plan newQuery()
@@ -34,6 +35,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Plan wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereYearPeriod($value)
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
+ *
  * @mixin \Eloquent
  */
 class Plan extends Model
@@ -85,6 +89,6 @@ class Plan extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_plan')->withPivot('is_active','owner_id');
+        return $this->belongsToMany(User::class, 'user_plan')->withPivot('is_active', 'owner_id');
     }
 }

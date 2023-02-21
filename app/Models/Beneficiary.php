@@ -18,6 +18,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User|null $user
+ *
  * @method static \Database\Factories\BeneficiaryFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Beneficiary newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Beneficiary newQuery()
@@ -31,6 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Beneficiary whereRelationship($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Beneficiary whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Beneficiary whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class Beneficiary extends Model
