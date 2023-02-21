@@ -31,7 +31,7 @@ class UserRequest extends FormRequest
                 'email' => 'required|unique:users,email|string|max:255',
                 'role' => 'required|string|exists:roles,name',
                 'branch_id' => 'nullable|exists:branches,id',
-                'beneficiaries' => 'required|array|min:2',
+                'beneficiaries' => 'sometimes|array|min:1|max:2',
             ];
         }
     }

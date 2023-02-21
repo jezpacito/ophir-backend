@@ -17,7 +17,7 @@ class UserResource extends JsonResource
         return[
             'id' => $this->id,
             'role' => $this->role,
-            'beneficiaries' =>BeneficiaryResource::collection($this->beneficiaries),
+            'beneficiaries' => BeneficiaryResource::collection($this->beneficiaries),
             'branch' => $this->branch,
             'account_type' => $this->account_type,
             'username' => $this->username,

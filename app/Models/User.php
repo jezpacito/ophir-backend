@@ -165,7 +165,8 @@ class User extends Authenticatable
         return $this->belongsToMany(Plan::class, 'user_plan')->withPivot('is_active');
     }
 
-    public function beneficiaries(){
+    public function beneficiaries()
+    {
         return $this->hasMany(Beneficiary::class);
     }
 }

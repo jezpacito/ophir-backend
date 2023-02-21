@@ -29,8 +29,8 @@ class UserControllerTest extends TestCase
         $this->actingAs(User::factory()->create());
 
         $beneficiaries = Beneficiary::factory()->count(2)->make();
-       unset( $beneficiaries[0]["user_id"]);
-       unset( $beneficiaries[1]["user_id"]);
+        unset($beneficiaries[0]['user_id']);
+        unset($beneficiaries[1]['user_id']);
 
         $data = [
             'firstname' => $this->faker()->firstName(),
@@ -38,7 +38,7 @@ class UserControllerTest extends TestCase
             'lastname' => $this->faker()->lastName(),
             'email' => 'test@test.com',
             'role' => Role::ROLE_PLANHOLDER,
-            'beneficiaries' =>   $beneficiaries->toArray(),
+            'beneficiaries' => $beneficiaries->toArray(),
         ];
 
         $response = $this->post('api/users', $data, ['Accept' => 'application/json']);
@@ -51,6 +51,5 @@ class UserControllerTest extends TestCase
             'email' => $data['email'],
             'role_id' => Role::ofName($data['role'])->id,
         ]);
-
     }
 }
