@@ -165,7 +165,7 @@ class User extends Authenticatable implements HasMedia
      * @var array<string>
      */
     protected $appends = [
-        'profile',
+        'profile_image',
         'marketing_tools',
     ];
 
