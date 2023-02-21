@@ -93,6 +93,15 @@ class UserController extends Controller
             $user->addMediaFromBase64(json_decode($image))
                 ->usingFileName($imageName)
                 ->toMediaCollection('profile_image');
+
+            return response()->json([
+                'data' => new UserResource($user),
+                'message' => 'success',
+            ], 200);
         }
+
+        return response()->json([
+            'message' => 'no image found on request!',
+        ], 404);
     }
 }
