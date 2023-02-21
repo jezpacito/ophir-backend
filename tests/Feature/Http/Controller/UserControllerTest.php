@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controller;
 
+use App\Models\Beneficiary;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,13 +28,19 @@ class UserControllerTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
 
+        $beneficiaries = Beneficiary::factory()->count(2)->make();
+       unset( $beneficiaries[0]["user_id"]);
+       unset( $beneficiaries[1]["user_id"]);
+
         $data = [
             'firstname' => $this->faker()->firstName(),
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
             'email' => 'test@test.com',
-            'role' => Role::ROLE_ENCODER,
+            'role' => Role::ROLE_PLANHOLDER,
+            'beneficiaries' =>   $beneficiaries->toArray(),
         ];
+
         $response = $this->post('api/users', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
         $response->dump();
@@ -44,5 +51,6 @@ class UserControllerTest extends TestCase
             'email' => $data['email'],
             'role_id' => Role::ofName($data['role'])->id,
         ]);
+
     }
 }
