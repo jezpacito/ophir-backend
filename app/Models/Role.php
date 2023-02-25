@@ -54,8 +54,6 @@ class Role extends Model
     ];
 
     public static $roles = [
-        // self::ROLE_DIRECTOR,
-        self::ROLE_MANAGER,
         self::ROLE_ENCODER,
         self::ROLE_AGENT,
         self::ROLE_PLANHOLDER,
@@ -63,7 +61,7 @@ class Role extends Model
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class, 'user_roles', 'role_id', 'user_id')->withPivot('is_active');
     }
 
     /**

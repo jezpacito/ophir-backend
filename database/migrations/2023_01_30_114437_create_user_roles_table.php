@@ -13,14 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_plan', function (Blueprint $table) {
+        Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('plan_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('referred_by_id')->nullable()->references('id')->nullOnDelete()->on('users')->comment('referred_by');
+            $table->foreignId('role_id')->nullable()->constrained()->nullOnDelete();
             $table->boolean('is_active')->default(true);
-            $table->boolean('is_transferrable')->default(true);
-            $table->string('billing_method')->comment('could be Monthly, Yearly, Quarterly, Semi-Annually, Annual')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_plan');
+        Schema::dropIfExists('user_roles');
     }
 };

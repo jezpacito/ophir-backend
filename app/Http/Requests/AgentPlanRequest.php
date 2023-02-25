@@ -2,9 +2,10 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Plan;
 use Illuminate\Foundation\Http\FormRequest;
 
-class StaffRequest extends FormRequest
+class AgentPlanRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +24,12 @@ class StaffRequest extends FormRequest
      */
     public function rules()
     {
+        $billingMethods = implode(',', Plan::$billingMethod);
+
         return [
-            'user_id' => 'sometimes|exists:App\Models\User,id',
-            'type' => 'required|string|in:Manager,Agent,Director,Encoder',
+            'plan_id' => 'required|exists:plans,id',
+            'referred_by_id' => 'nullable|exists:users,id',
+            'billing_method' => 'required|in:'.$billingMethods,
         ];
     }
 }
