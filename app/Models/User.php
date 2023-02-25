@@ -217,9 +217,9 @@ class User extends Authenticatable implements HasMedia
         return $this->marketing_tools;
     }
 
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id')->withPivot('is_active');
     }
 
     public function branch()
@@ -227,18 +227,19 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(Branch::class);
     }
 
-    public function setPasswordAttribute($value)
+    public function userPlans()
     {
-        $this->attributes['password'] = Hash::make($value);
-    }
-
-    public function plans()
-    {
-        return $this->belongsToMany(Plan::class, 'user_plan')->withPivot('is_active', 'owner_id');
+        return $this->belongsToMany(Plan::class, 'user_plan')
+        ->withPivot('is_active', 'referred_by_id', 'is_transferrable', 'billing_method');
     }
 
     public function beneficiaries()
     {
         return $this->hasMany(Beneficiary::class);
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

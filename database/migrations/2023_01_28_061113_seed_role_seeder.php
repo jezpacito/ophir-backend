@@ -19,5 +19,13 @@ return new class extends Migration
                 'guard_name' => 'api',
             ]);
         }
+
+        /** @var Role $roles */
+        foreach (Role::$role_users as $role_users) {
+            Role::query()->create([
+                'name' => $role_users,
+                'guard_name' => 'api',
+            ]);
+        }
     }
 };

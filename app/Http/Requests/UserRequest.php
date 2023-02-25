@@ -23,16 +23,29 @@ class UserRequest extends FormRequest
      */
     public function rules()
     {
-        if ($this->isMethod('post')) {
-            return [
-                'firstname' => 'required|string|max:255',
-                'middlename' => 'required|string|max:255',
-                'lastname' => 'required|string|max:255',
-                'email' => 'required|unique:users,email|string|max:255',
-                'role' => 'required|string|exists:roles,name',
-                'branch_id' => 'nullable|exists:branches,id',
-                'beneficiaries' => 'sometimes|array|min:1|max:2',
-            ];
-        }
+        return [
+            'firstname' => 'sometimes|string|max:255',
+            'middlename' => 'sometimes|string|max:255',
+            'lastname' => 'sometimes|string|max:255',
+            'email' => 'sometimes|unique:users,email|string|max:255',
+            'role' => 'sometimes|string|exists:roles,name',
+            'branch_id' => 'nullable|exists:branches,id',
+            'gender' => 'nullable|string|max:50',
+            'birthdate' => 'nullable|date',
+            'age' => 'nullable',
+            'postal_code' => 'sometimes|string|max:255',
+            'contact_no' => 'sometimes|string|max:255',
+            'civil_status' => 'sometimes|string|max:255',
+            'height' => 'sometimes|string|max:255',
+            'weigth' => 'sometimes|string|max:255',
+            'citizenship' => 'sometimes|string|max:255',
+            'sponsor' => 'sometimes|string|max:255',
+            'sss_number' => 'sometimes|string|max:255',
+            'tin_number' => 'sometimes|string|max:255',
+            'status' => 'sometimes|string|max:255',
+            'facebook' => 'sometimes|string|max:255',
+            'messenger' => 'sometimes|string|max:255',
+            'twitter' => 'sometimes|string|max:255',
+        ];
     }
 }
