@@ -20,23 +20,23 @@ return new class extends Migration
         ]);
 
         /** @var Role $roles_users */
-        foreach (Role::get() as $role_users) {
+        foreach (Role::$role_users as $role_users) {
             $user = User::factory()->create([
-                'username' => $role_users->name,
+                'username' => $role_users,
                 'password' => 'password',
             ]);
 
-            $user->roles()->attach($role_users->id);
+            $user->roles()->attach(Role::ofName($role_users));
         }
 
         /** @var Role $roles */
-        foreach (Role::get() as $roles) {
+        foreach (Role::$roles as $roles) {
             $user = User::factory()->create([
-                'username' => $roles->name,
+                'username' => $roles,
                 'password' => 'password',
             ]);
 
-            $user->roles()->attach($role_users->id);
+            $user->roles()->attach(Role::ofName($roles));
         }
     }
 };

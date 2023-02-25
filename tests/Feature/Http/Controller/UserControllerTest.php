@@ -33,7 +33,6 @@ class UserControllerTest extends TestCase
 
         $response = $this->get("api/users-branch/$branch->id", ['Accept' => 'application/json']);
         $response->assertStatus(200);
-        $response->dump();
     }
 
     /**

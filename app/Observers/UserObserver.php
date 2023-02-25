@@ -18,7 +18,8 @@ class UserObserver
     {
         $userRole = UserRole::whereIn('user_id', [$user->id])
         ->whereIn('role_id', [Role::ofName(User::ROLE_ADMIN)->id, Role::ofName(User::ROLE_BRANCH_ADMIN)->id])
-        ->doesntExist();
+        ->exists();
+
 
         if ($userRole) {
             $username = strtolower(substr($user->firstname, 0, 1).$user->middlename.'.'.$user->lastname);

@@ -54,8 +54,6 @@ class Role extends Model
     ];
 
     public static $roles = [
-        // self::ROLE_DIRECTOR,
-        // self::ROLE_MANAGER,
         self::ROLE_ENCODER,
         self::ROLE_AGENT,
         self::ROLE_PLANHOLDER,
