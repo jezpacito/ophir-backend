@@ -4,6 +4,7 @@ use App\Http\Controllers\Api\SanctumController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BranchController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\PlanholderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StaffController;
 use App\Http\Controllers\UserController;
@@ -32,6 +33,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('staffs', StaffController::class);
     Route::apiResource('roles', RoleController::class);
     Route::apiResource('users', UserController::class);
+    Route::get('users-branch/{branch_id}', [UserController::class, 'index']);
+    Route::apiResource('planholders', PlanholderController::class);
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('plans', PlanController::class);
 });

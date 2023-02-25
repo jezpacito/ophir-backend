@@ -2,7 +2,9 @@
 
 namespace App\Observers;
 
+use App\Models\Role;
 use App\Models\User;
+use App\Models\UserRole;
 
 class UserObserver
 {
@@ -14,7 +16,12 @@ class UserObserver
      */
     public function created(User $user)
     {
-        if (! $user->role->name === User::ROLE_ADMIN || $user->role->name === User::ROLE_BRANCH_ADMIN) {
+        // dd(UserRole::count());
+        $userRole = UserRole::whereIn('user_id', [$user->id])
+        ->whereIn('role_id', [Role::ofName(User::ROLE_ADMIN)->id, Role::ofName(User::ROLE_BRANCH_ADMIN)->id])
+        ->doesntExist();
+
+        if ($userRole) {
             $username = strtolower(substr($user->firstname, 0, 1).$user->middlename.'.'.$user->lastname);
             $query = User::where('username', $username);
             if ($query->exists()) {

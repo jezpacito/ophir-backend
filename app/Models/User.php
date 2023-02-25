@@ -145,9 +145,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function role()
+    public function roles()
     {
-        return $this->belongsTo(Role::class);
+        return $this->belongsToMany(Role::class, 'user_roles', 'user_id', 'role_id')->withPivot('is_active');
     }
 
     public function branch()
@@ -155,18 +155,23 @@ class User extends Authenticatable
         return $this->belongsTo(Branch::class);
     }
 
-    public function setPasswordAttribute($value)
+    public function userPlans()
     {
-        $this->attributes['password'] = Hash::make($value);
-    }
-
-    public function plans()
-    {
-        return $this->belongsToMany(Plan::class, 'user_plan')->withPivot('is_active','owner_id');
+        return $this->belongsToMany(Plan::class, 'user_plan')->withPivot('is_active');
     }
 
     public function beneficiaries()
     {
         return $this->hasMany(Beneficiary::class);
+    }
+
+    public function referred_by()
+    {
+        return $this->hasMany(self::class, 'referred_by_id', 'id');
+    }
+
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = Hash::make($value);
     }
 }

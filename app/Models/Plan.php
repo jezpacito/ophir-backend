@@ -34,8 +34,8 @@ class Plan extends Model
         'price',
         'year_period',
         'is_active',
-        'is_transferrable',
-        'billing_method',
+        'is_transferrable', //not sure (could be inside payment table)
+        'billing_method', //not sure (could be inside payment table)
     ];
 
     public static $plans = [
@@ -52,8 +52,8 @@ class Plan extends Model
         self::MONTHLY,
     ];
 
-    public function users()
+    public function userPlans()
     {
-        return $this->belongsToMany(User::class, 'user_plan')->withPivot('is_active','owner_id');
+        return $this->belongsToMany(User::class, 'user_plan')->withPivot('is_active');
     }
 }
