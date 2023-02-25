@@ -95,11 +95,29 @@ class UserController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function uploadImage(User $user, Request $request)
     {
-        //
+        if ($request->profile_image) {
+            $split = explode('/', $request->profile_image);
+            $type = explode(';', $split[1])[0];
+
+            $image = $request->profile_image;
+            $imageName = Str::random(20).'.'.$type;
+
+            $user->addMediaFromBase64(json_decode($image))
+                ->usingFileName($imageName)
+                ->toMediaCollection('profile_image');
+
+            return response()->json([
+                'data' => new UserResource($user),
+                'message' => 'success',
+            ], 200);
+        }
+
+        return response()->json([
+            'message' => 'no image found on request!',
+        ], 404);
     }
 }

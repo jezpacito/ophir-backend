@@ -21,6 +21,15 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Branch whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Branch whereUpdatedAt($value)
  *
+ * @property int|null $branch_number
+ * @property string $name
+ * @property string|null $address
+ *
+ * @method static \Database\Factories\BranchFactory factory($count = null, $state = [])
+ * @method static \Illuminate\Database\Eloquent\Builder|Branch whereAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Branch whereBranchNumber($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Branch whereName($value)
+ *
  * @mixin \Eloquent
  */
 class Branch extends Model

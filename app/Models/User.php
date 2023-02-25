@@ -9,6 +9,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * App\Models\User
@@ -99,11 +101,25 @@ use Laravel\Sanctum\HasApiTokens;
  * @method static \Illuminate\Database\Eloquent\Builder|User whereUserame($value)
  * @method static \Illuminate\Database\Eloquent\Builder|User whereWeigth($value)
  *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Beneficiary> $beneficiaries
+ * @property-read int|null $beneficiaries_count
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read int|null $media_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
+ * @property-read int|null $plans_count
+ *
+ * @method static \Illuminate\Database\Eloquent\Builder|User whereUsername($value)
+ *
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Beneficiary> $beneficiaries
+ * @property-read \Spatie\MediaLibrary\MediaCollections\Models\Collections\MediaCollection<int, \Spatie\MediaLibrary\MediaCollections\Models\Media> $media
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
+ *
  * @mixin \Eloquent
  */
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
     use HasApiTokens, HasFactory, Notifiable;
+    use InteractsWithMedia;
 
     const ROLE_ADMIN = 'Admin';
 
@@ -144,6 +160,62 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * @var array<string>
+     */
+    protected $appends = [
+        'profile_image',
+        'marketing_tools',
+    ];
+
+    public function registerMediaCollections(): void
+    {
+        // Allow only one file to be associated per collection
+        $this->addMediaCollection('profile_image')
+            ->singleFile();
+        $this->addMediaCollection('marketing_tools');
+    }
+
+    /**
+     * Get file URL for profile_image
+     *
+     * @return string
+     */
+    public function getProfileImageAttribute(): string
+    {
+        return $this->getFirstMediaUrl('profile_image');
+    }
+
+    /**
+     * Get file URL for marketing tools
+     *
+     * @return string
+     */
+    public function getMarketingToolsAttribute(): string
+    {
+        return $this->getFirstMediaUrl('marketing_tools');
+    }
+
+    /**
+     * @return string
+     *
+     * @deprecated
+     */
+    public function getProfileImageUrl(): string
+    {
+        return $this->profile_image;
+    }
+
+    /**
+     * @return string
+     *
+     * @deprecated
+     */
+    public function geMarketingToolsUrl(): string
+    {
+        return $this->marketing_tools;
+    }
 
     public function roles()
     {

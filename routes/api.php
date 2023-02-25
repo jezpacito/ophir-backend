@@ -9,6 +9,7 @@ use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanholderController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -29,11 +30,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::post('login', [SanctumController::class, 'store']);
 
+Route::get('upload-profile', function () {
+    User::first()
+    ->addMedia(public_path('demo/test2.jpg'))
+    ->toMediaCollection('profile_image');
+});
 Route::group(['middleware' => ['auth:sanctum']], function () {
     /*api resources*/
     Route::apiResource('users', UserController::class);
     Route::apiResource('branches', BranchController::class);
     Route::apiResource('roles', RoleController::class);
+
     Route::apiResource('planholders', PlanholderController::class);
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('plans', PlanController::class);
@@ -41,6 +48,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /*single route apis*/
     Route::put('switch-account', [AccountController::class, 'switchAccount']);
     Route::post('add-plan', [AgentController::class, 'addPlan']);
+    Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);
 
     /*users controllers*/
     Route::controller(UserController::class)->group(function () {
