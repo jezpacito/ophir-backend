@@ -39,7 +39,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('plans', PlanController::class);
 
     /*single route apis*/
-    Route::put('switch-account/{role_account_id}', [AccountController::class, 'switchAccount']);
+    Route::put('switch-account', [AccountController::class, 'switchAccount']);
     Route::post('add-plan', [AgentController::class, 'addPlan']);
 
     /*users controllers*/
