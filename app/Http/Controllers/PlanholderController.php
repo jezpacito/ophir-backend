@@ -52,22 +52,38 @@ class PlanholderController extends Controller
                     'password' => $password,
                 ]));
 
-            /**Will send planholder credentials thru email */
+            /* Will send planholder credentials thru email */
             $credentials = ['username' => $planholder->username, 'password' => $password];
             $planholder->notify(new SendCredentials($credentials));
             Log::info('planholder credentials sent: '.$planholder->username.' pass: '.$password);
 
             if ($request->role === Role::ROLE_PLANHOLDER) {
-                /**creating beneficiaries of planholders */
+                /* creating beneficiaries of planholders */
                 foreach ($request->beneficiaries as $beneficiary) {
                     Beneficiary::create(array_merge(['user_id' => $planholder->id], $beneficiary));
                 }
 
-                /**attach role to user planholder */
-                $planholder->roles()->attach(Role::ofName($request->role)->id);
-
-                /**create plan for planholder */
+                /* create plan for planholder */
                 $plan = Plan::findOrFail($request->plan_id);
+
+                /* is_active column for switching account roles
+                 *  whoevers has a is_active===true user_role
+                 * would be the default profile after login
+                 *
+                 * NOTE: should only have one is_active status in user roles
+                 */
+
+                $is_active = true;
+                if ($planholder->userPlans()->count() >= 1) {
+                    /* is_active column in user_role table */
+                    $is_active = false;
+                }
+
+                /* attach role to user planholder */
+                $planholder->roles()->attach(Role::ofName($request->role)->id, [
+                    'is_active' => $is_active,
+                ]);
+
                 $planholder->userPlans()->attach($plan,
                     [
                         'billing_method' => $request->billing_method,

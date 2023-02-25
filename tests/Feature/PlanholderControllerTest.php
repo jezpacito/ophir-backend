@@ -73,5 +73,10 @@ class PlanholderControllerTest extends TestCase
             'is_transferrable' => true,
             'billing_method' => $data['billing_method'],
         ]);
+
+        $this->assertDatabaseHas('user_roles', [
+            'role_id' => Role::ofName($data['role'])->id,
+            'is_active' => true,
+        ]);
     }
 }
