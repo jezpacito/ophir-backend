@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Models\Plan;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PlanholderRequest extends FormRequest
@@ -23,6 +24,8 @@ class PlanholderRequest extends FormRequest
      */
     public function rules()
     {
+        $billingMethods = implode(',', Plan::$billingMethod);
+
         if ($this->isMethod('post')) {
             return [
                 'beneficiaries' => 'sometimes|array|min:1|max:2',
@@ -31,6 +34,9 @@ class PlanholderRequest extends FormRequest
                 'lastname' => 'sometimes|string|max:255',
                 'email' => 'sometimes|unique:users,email|string|max:255',
                 'role' => 'required|string|exists:roles,name',
+                'referred_by_id' => 'sometimes|exists:users,id',
+                'plan_id' => 'required|exists:plans,id',
+                'billing_method' => 'required|in:'.$billingMethods,
                 'branch_id' => 'required|exists:branches,id',
                 'gender' => 'nullable|string|max:50',
                 'birthdate' => 'nullable|date',
@@ -48,7 +54,7 @@ class PlanholderRequest extends FormRequest
                 'facebook' => 'sometimes|string|max:255',
                 'messenger' => 'sometimes|string|max:255',
                 'twitter' => 'sometimes|string|max:255',
-    
+
             ];
         }
     }

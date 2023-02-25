@@ -158,14 +158,13 @@ class User extends Authenticatable
     public function userPlans()
     {
         return $this->belongsToMany(Plan::class, 'user_plan')
-        ->withPivot('is_active','referred_by');
+        ->withPivot('is_active', 'referred_by_id', 'is_transferrable', 'billing_method');
     }
 
     public function beneficiaries()
     {
         return $this->hasMany(Beneficiary::class);
     }
-
 
     public function setPasswordAttribute($value)
     {

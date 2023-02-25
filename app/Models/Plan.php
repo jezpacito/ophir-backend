@@ -34,8 +34,6 @@ class Plan extends Model
         'price',
         'year_period',
         'is_active',
-        'is_transferrable', //not sure (could be inside payment table)
-        'billing_method', //not sure (could be inside payment table)
     ];
 
     public static $plans = [
@@ -55,6 +53,17 @@ class Plan extends Model
     public function userPlans()
     {
         return $this->belongsToMany(User::class, 'user_plan')
-        ->withPivot('is_active','referred_by_id');
+        ->withPivot('is_active', 'referred_by_id', 'is_transferrable', 'billing_method');
+    }
+
+    /**
+     * Scope a query to
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeOfName($query, $name)
+    {
+        return $query->where('name', $name)->first();
     }
 }

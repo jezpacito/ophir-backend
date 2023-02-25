@@ -9,6 +9,7 @@ use App\Models\User;
 use App\Notifications\SendCredentials;
 use DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Str;
 
 class UserController extends Controller
@@ -47,8 +48,11 @@ class UserController extends Controller
             $user = User::create(array_merge($request->except('role', 'beneficiaries'), [
                 'password' => $password,
             ]));
+
+            /**Will send user credentials thru email */
             $credentials = ['username' => $user->username, 'password' => $password];
             $user->notify(new SendCredentials($credentials));
+            Log::info('admin/staffs user credentials sent: '.$user->username.' pass: '.$password);
 
             return $user;
         });

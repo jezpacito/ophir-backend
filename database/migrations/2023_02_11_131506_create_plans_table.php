@@ -20,8 +20,6 @@ return new class extends Migration
             $table->integer('price')->nullable();
             $table->string('year_period')->nullable();
             $table->boolean('is_active')->default(true);
-            $table->boolean('is_transferrable')->default(true);
-            $table->string('billing_method')->comment('could be Monthly, Yearly, Quarterly, Semi-Annually, Annual')->nullable();
             $table->timestamps();
         });
     }

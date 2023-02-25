@@ -16,7 +16,6 @@ class UserObserver
      */
     public function created(User $user)
     {
-        // dd(UserRole::count());
         $userRole = UserRole::whereIn('user_id', [$user->id])
         ->whereIn('role_id', [Role::ofName(User::ROLE_ADMIN)->id, Role::ofName(User::ROLE_BRANCH_ADMIN)->id])
         ->doesntExist();

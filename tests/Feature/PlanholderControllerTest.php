@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use App\Models\Beneficiary;
 use App\Models\Branch;
+use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -27,7 +28,7 @@ class PlanholderControllerTest extends TestCase
      */
     public function test_add_planholder()
     {
-        $this->actingAs(User::factory()->create());
+        $this->actingAs($user = User::factory()->create());
 
         $beneficiaries = Beneficiary::factory()->count(2)->make();
         unset($beneficiaries[0]['user_id']);
@@ -37,10 +38,13 @@ class PlanholderControllerTest extends TestCase
             'firstname' => $this->faker()->firstName(),
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
-            'email' => 'test@test.com',
+            'email' => $this->faker()->email(),
             'role' => Role::ROLE_PLANHOLDER,
             'beneficiaries' => $beneficiaries->toArray(),
-            'branch_id' => Branch::first()->id
+            'branch_id' => Branch::first()->id,
+            'plan_id' => Plan::first()->id,
+            'billing_method' => Plan::ANNUAL,
+            'referred_by_id' => $user->id,
         ];
 
         $response = $this->post('api/planholders', $data, ['Accept' => 'application/json']);
@@ -51,6 +55,23 @@ class PlanholderControllerTest extends TestCase
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'email' => $data['email'],
+            'branch_id' => $data['branch_id'],
+        ]);
+
+        foreach ($beneficiaries as $beneficiary) {
+            $this->assertDatabaseHas('beneficiaries', [
+                'firstname' => $beneficiary->firstname,
+                'lastname' => $beneficiary->lastname,
+                'relationship' => $beneficiary->relationship,
+                'birthdate' => $beneficiary->birthdate,
+            ]);
+        }
+
+        $this->assertDatabaseHas('user_plan', [
+            'plan_id' => $data['plan_id'],
+            'is_active' => true,
+            'is_transferrable' => true,
+            'billing_method' => $data['billing_method'],
         ]);
     }
 }
