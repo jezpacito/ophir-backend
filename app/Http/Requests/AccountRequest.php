@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class StaffRequest extends FormRequest
+class AccountRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class StaffRequest extends FormRequest
     public function rules()
     {
         return [
-            'user_id' => 'sometimes|exists:App\Models\User,id',
-            'type' => 'required|string|in:Manager,Agent,Director,Encoder',
+            'user_id' => 'required|exists|users,id',
+            'role_id' => 'required|exists|roles,id',
+            'role_account_id' => 'required|exists|user_roles,id',
         ];
     }
 }

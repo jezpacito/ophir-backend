@@ -19,6 +19,7 @@ class PlanholderResource extends JsonResource
             'roles' => $this->roles,
             'referred_by' => new ReferredByResource($this->referred_by),
             'beneficiaries' => BeneficiaryResource::collection($this->beneficiaries),
+            'plans' => $this->userPlans,
             'branch' => $this->branch,
             'username' => $this->username,
             'lastname' => $this->lastname,

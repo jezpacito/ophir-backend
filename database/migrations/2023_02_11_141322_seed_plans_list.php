@@ -17,6 +17,7 @@ return new class extends Migration
             Plan::query()->create([
                 'name' => $plan,
                 'year_period' => Plan::CURRENT_YEAR_PERIOD,
+                'price' => 1000,
             ]);
         }
     }
