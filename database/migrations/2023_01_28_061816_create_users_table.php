@@ -16,7 +16,6 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
-            $table->foreignId('referred_by_id')->nullable()->references('id')->nullOnDelete()->on('users')->comment('referred_by');
             $table->string('username')->unique()->nullable();
             $table->string('lastname')->index()->nullable();
             $table->string('firstname')->index()->nullable();

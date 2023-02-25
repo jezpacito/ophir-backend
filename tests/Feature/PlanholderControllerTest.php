@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Models\Beneficiary;
+use App\Models\Branch;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -39,9 +40,10 @@ class PlanholderControllerTest extends TestCase
             'email' => 'test@test.com',
             'role' => Role::ROLE_PLANHOLDER,
             'beneficiaries' => $beneficiaries->toArray(),
+            'branch_id' => Branch::first()->id
         ];
 
-        $response = $this->post('api/planholder', $data, ['Accept' => 'application/json']);
+        $response = $this->post('api/planholders', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
         $response->dump();
 

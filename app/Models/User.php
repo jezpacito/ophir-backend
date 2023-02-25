@@ -157,7 +157,8 @@ class User extends Authenticatable
 
     public function userPlans()
     {
-        return $this->belongsToMany(Plan::class, 'user_plan')->withPivot('is_active');
+        return $this->belongsToMany(Plan::class, 'user_plan')
+        ->withPivot('is_active','referred_by');
     }
 
     public function beneficiaries()
@@ -165,10 +166,6 @@ class User extends Authenticatable
         return $this->hasMany(Beneficiary::class);
     }
 
-    public function referred_by()
-    {
-        return $this->hasMany(self::class, 'referred_by_id', 'id');
-    }
 
     public function setPasswordAttribute($value)
     {
