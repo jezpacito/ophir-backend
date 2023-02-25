@@ -2,8 +2,6 @@
 
 namespace Tests\Feature\Http\Api;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class AccountControllerTest extends TestCase
