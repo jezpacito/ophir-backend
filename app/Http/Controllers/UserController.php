@@ -19,7 +19,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($branchId)
+    public function userBranch($branchId)
     {
         $adminRoles = [Role::ROLE_ENCODER, Role::ROLE_BRANCH_ADMIN, Role::ROLE_ADMIN];
 
@@ -31,6 +31,18 @@ class UserController extends Controller
 
         return response()->json([
             'data' => UserResource::collection($admins),
+        ]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        return response()->json([
+            'data' => UserResource::collection(User::get()),
         ]);
     }
 

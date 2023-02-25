@@ -41,7 +41,6 @@ class AccountControllerTest extends TestCase
         ];
 
         $response = $this->put('api/switch-account', $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 }

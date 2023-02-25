@@ -44,6 +44,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     /*users controllers*/
     Route::controller(UserController::class)->group(function () {
-        Route::get('users-branch/{branch_id}', 'index');
+        Route::get('users-branch/{branch_id}', 'userBranch');
     });
 });
