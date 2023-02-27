@@ -18,6 +18,7 @@ class UserFactory extends Factory
     public function definition()
     {
         return [
+            'branch_id' => 1,
             'firstname' => fake()->firstName(),
             'middlename' => fake()->lastName(),
             'lastName' => fake()->lastName(),

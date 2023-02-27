@@ -49,13 +49,13 @@ class Role extends Model
     const ROLE_PLANHOLDER = 'Planholder';
 
     public static $role_users = [
+        self::ROLE_ENCODER,
         self::ROLE_ADMIN,
         self::ROLE_BRANCH_ADMIN,
 
     ];
 
     public static $roles = [
-        self::ROLE_ENCODER,
         self::ROLE_AGENT,
         self::ROLE_PLANHOLDER,
     ];

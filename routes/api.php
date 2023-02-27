@@ -46,12 +46,16 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('plans', PlanController::class);
 
     /*single route apis*/
-    Route::put('switch-account', [AccountController::class, 'switchAccount']);
     Route::post('add-plan', [AgentController::class, 'addPlan']);
     Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);
 
     /*users controllers*/
     Route::controller(UserController::class)->group(function () {
         Route::get('users-branch/{branch_id}', 'userBranch');
+    });
+
+    Route::controller(AccountController::class)->group(function () {
+        Route::get('account-details', 'accountDetails');
+        Route::put('switch-account', 'switchAccount');
     });
 });

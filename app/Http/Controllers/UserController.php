@@ -21,7 +21,7 @@ class UserController extends Controller
      */
     public function userBranch($branchId)
     {
-        $adminRoles = [Role::ROLE_ENCODER, Role::ROLE_BRANCH_ADMIN, Role::ROLE_ADMIN];
+        $adminRoles = Role::$role_users;
 
         $admins = User::ofRoles($adminRoles)
         ->where('branch_id', $branchId)
