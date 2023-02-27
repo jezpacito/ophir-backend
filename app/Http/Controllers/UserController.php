@@ -23,9 +23,7 @@ class UserController extends Controller
     {
         $adminRoles = [Role::ROLE_ENCODER, Role::ROLE_BRANCH_ADMIN, Role::ROLE_ADMIN];
 
-        $admins = User::whereHas('roles', function ($query) use ($adminRoles) {
-            $query->whereIn('name', $adminRoles);
-        })
+        $admins = User::ofRoles($adminRoles)
         ->where('branch_id', $branchId)
         ->get();
 

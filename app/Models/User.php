@@ -5,6 +5,7 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Hash;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -241,5 +242,15 @@ class User extends Authenticatable implements HasMedia
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
+    }
+
+    /**
+     * Scope a query to only include users of a given type.
+     */
+    public function scopeOfRoles(Builder $query, array $roles): void
+    {
+        $query->whereHas('roles', function ($query) use ($roles) {
+            $query->whereIn('name', $roles);
+        });
     }
 }

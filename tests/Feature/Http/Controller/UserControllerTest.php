@@ -32,6 +32,7 @@ class UserControllerTest extends TestCase
         $user->roles()->attach($role->id);
 
         $response = $this->get("api/users-branch/$branch->id", ['Accept' => 'application/json']);
+        $response->dump();
         $response->assertStatus(200);
     }
 
