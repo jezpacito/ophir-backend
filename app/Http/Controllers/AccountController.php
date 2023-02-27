@@ -15,7 +15,7 @@ class AccountController extends Controller
     public function accountDetails()
     {
         $adminRole = User::ofRoles(Role::$role_users)
-        ->exists();
+        ->doesntExist();
 
         if ($adminRole) {
             return response()->json([
