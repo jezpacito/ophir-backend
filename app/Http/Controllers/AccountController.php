@@ -7,11 +7,21 @@ use App\Http\Resources\PlanholderResource;
 use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserPlan;
 use App\Models\UserRole;
 use Illuminate\Support\Facades\DB as FacadesDB;
 
 class AccountController extends Controller
 {
+    public function referralTree()
+    {
+        $referrals = UserPlan::ofReferredBy(auth()->user()->id)->paginate(20);
+
+        return response()->json([
+            'data' => PlanholderResource::collection($referrals),
+        ]);
+    }
+
     public function accountDetails()
     {
         $adminRole = User::ofRoles(Role::$role_users)

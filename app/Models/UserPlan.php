@@ -2,12 +2,15 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class UserPlan extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
 
     /**
      * The table associated with the model.
@@ -29,5 +32,13 @@ class UserPlan extends Model
     public function referred_by()
     {
         return $this->belongsTo(User::class, 'referred_by_id', 'id');
+    }
+
+    /**
+     * Scope a query to only include users of a given type.
+     */
+    public function scopeOfReferredBy(Builder $query, string $referred_by_id): void
+    {
+        $query->where('referred_by_id', $referred_by_id);
     }
 }

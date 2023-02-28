@@ -56,6 +56,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     Route::controller(AccountController::class)->group(function () {
         Route::get('account-details', 'accountDetails');
+        Route::get('referral-tree', 'referralTree');
         Route::put('switch-account', 'switchAccount');
     });
 });
