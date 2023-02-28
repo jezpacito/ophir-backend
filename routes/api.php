@@ -40,7 +40,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('users', UserController::class);
     Route::apiResource('branches', BranchController::class);
     Route::apiResource('roles', RoleController::class);
-
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('plans', PlanController::class);
 

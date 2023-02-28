@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountRequest;
 use App\Http\Resources\PlanholderResource;
+use App\Http\Resources\UserPlanResource;
 use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
@@ -17,9 +18,7 @@ class AccountController extends Controller
     {
         $referrals = UserPlan::ofReferredBy(auth()->user()->id)->paginate(20);
 
-        return response()->json([
-            'data' => PlanholderResource::collection($referrals),
-        ]);
+        return UserPlanResource::collection($referrals)->response()->getData(true);
     }
 
     public function accountDetails()
