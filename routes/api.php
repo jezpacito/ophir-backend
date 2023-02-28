@@ -41,9 +41,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('branches', BranchController::class);
     Route::apiResource('roles', RoleController::class);
 
-    Route::apiResource('planholders', PlanholderController::class);
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('plans', PlanController::class);
+
+    // api/
 
     /*single route apis*/
     Route::post('add-plan', [AgentController::class, 'addPlan']);
@@ -58,5 +59,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('account-details', 'accountDetails');
         Route::get('referral-tree', 'referralTree');
         Route::put('switch-account', 'switchAccount');
+    });
+
+    Route::controller(PlanholderController::class)->group(function () {
+        Route::post('planholders', 'store');
+        Route::post('register-as-agent', 'registerAsAgent');
     });
 });
