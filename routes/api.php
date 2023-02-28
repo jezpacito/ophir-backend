@@ -44,8 +44,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('plans', PlanController::class);
 
-    // api/
-
     /*single route apis*/
     Route::post('add-plan', [AgentController::class, 'addPlan']);
     Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);

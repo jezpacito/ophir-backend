@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PlanholderRequest;
+use App\Http\Requests\RegisterAsAgentRequest;
 use App\Http\Resources\PlanholderResource;
 use App\Models\Beneficiary;
 use App\Models\Plan;
@@ -72,6 +73,19 @@ class PlanholderController extends Controller
 
             return $planholder;
         });
+
+        return response()->json([
+            'data' => new PlanholderResource($planholder),
+            'message' => 'success',
+        ], 201);
+    }
+
+    public function registerAsAgent(RegisterAsAgentRequest $request)
+    {
+        $planholder = User::findOrFail($request->user_id);
+        $planholder->roles()->attach(Role::ofName($request->role), [
+            'is_active' => false,
+        ]);
 
         return response()->json([
             'data' => new PlanholderResource($planholder),

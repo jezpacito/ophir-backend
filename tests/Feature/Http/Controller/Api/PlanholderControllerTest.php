@@ -21,6 +21,29 @@ class PlanholderControllerTest extends TestCase
         $this->seed();
     }
 
+    public function test_register_as_agent()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $user->userPlans()->attach(Plan::first()->id);
+        $user->roles()->attach(Role::ofName('Planholder'));
+
+        $data = [
+            'user_id' => $user->id,
+            'branch_id' => $user->branch_id,
+            'role' => 'Agent',
+        ];
+        $response = $this->post('api/register-as-agent', $data, ['Accept' => 'application/json']);
+        $response->dump();
+        $response->assertStatus(201);
+
+        $this->assertDatabaseHas('user_roles', [
+            'user_id' => $data['user_id'],
+            'role_id' => Role::ofName('Agent')->id,
+            'is_active' => false,
+        ]);
+    }
+
     /**
      * A basic feature test example.
      *
