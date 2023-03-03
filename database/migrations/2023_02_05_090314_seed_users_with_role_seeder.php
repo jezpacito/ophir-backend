@@ -22,11 +22,12 @@ return new class extends Migration
         /** @var Role $roles_users */
         foreach (Role::$role_users as $role_users) {
             $user = User::factory()->create([
+
                 'username' => $role_users,
                 'password' => 'password',
             ]);
 
-            $user->roles()->attach(Role::ofName($role_users));
+            $user->roles()->attach([Role::ofName($role_users)->id]);
         }
 
         /** @var Role $roles */
@@ -36,7 +37,7 @@ return new class extends Migration
                 'password' => 'password',
             ]);
 
-            $user->roles()->attach(Role::ofName($roles));
+            $user->roles()->attach([Role::ofName($roles)->id]);
         }
     }
 };
