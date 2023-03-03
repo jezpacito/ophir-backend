@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AccountController;
+use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Api\SanctumController;
 use App\Http\Controllers\BeneficiaryController;
@@ -46,18 +47,21 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     /*single route apis*/
     Route::post('add-plan', [AgentController::class, 'addPlan']);
     Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);
+    Route::get('activity-logs', [ActivityLogController::class, 'index']);
 
     /*users controllers*/
     Route::controller(UserController::class)->group(function () {
         Route::get('users-branch/{branch_id}', 'userBranch');
     });
 
+    /*accounts controllers*/
     Route::controller(AccountController::class)->group(function () {
         Route::get('account-details', 'accountDetails');
         Route::get('referral-tree', 'referralTree');
         Route::put('switch-account', 'switchAccount');
     });
 
+    /*planholders controllers*/
     Route::controller(PlanholderController::class)->group(function () {
         Route::get('planholders', 'index');
         Route::post('planholders', 'store');
