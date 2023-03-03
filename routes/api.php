@@ -59,6 +59,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     });
 
     Route::controller(PlanholderController::class)->group(function () {
+        Route::get('planholders', 'index');
         Route::post('planholders', 'store');
         Route::post('register-as-agent', 'registerAsAgent');
     });

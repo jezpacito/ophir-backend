@@ -21,12 +21,24 @@ class PlanholderControllerTest extends TestCase
         $this->seed();
     }
 
+    public function test_get_planholders()
+    {
+        $user = User::factory()->create();
+        $this->actingAs($user);
+        $user->userPlans()->attach(Plan::first()->id);
+        $user->roles()->attach(Role::ofName('Planholder')->id);
+
+        $response = $this->get('api/planholders', ['Accept' => 'application/json']);
+        $response->dump();
+        $response->assertStatus(200);
+    }
+
     public function test_register_as_agent()
     {
         $user = User::factory()->create();
         $this->actingAs($user);
         $user->userPlans()->attach(Plan::first()->id);
-        $user->roles()->attach(Role::ofName('Planholder'));
+        $user->roles()->attach(Role::ofName('Planholder')->id);
 
         $data = [
             'user_id' => $user->id,

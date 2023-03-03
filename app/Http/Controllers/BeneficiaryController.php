@@ -16,7 +16,7 @@ class BeneficiaryController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => BeneficiaryResource::collection(Beneficiary::query()->take(Beneficiary::ALLOWED_BENEFICIARIES)->get()),
+            'data' => BeneficiaryResource::collection(Beneficiary::query()->get()),
         ]);
     }
 
