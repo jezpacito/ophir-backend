@@ -16,6 +16,13 @@ use Illuminate\Support\Str;
 
 class PlanholderController extends Controller
 {
+    public function index()
+    {
+        return response()->json([
+            'data' => PlanholderResource::collection(User::ofRoles([Role::ROLE_PLANHOLDER])->get()),
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
