@@ -27,7 +27,6 @@ class ActivityLogControllerTest extends TestCase
     {
         $this->actingAs(User::factory()->create(['branch_id' => Branch::first()->id]));
         $response = $this->get('api/activity-logs', ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 }
