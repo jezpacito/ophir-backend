@@ -67,10 +67,11 @@ class AccountControllerTest extends TestCase
 
         $this->actingAs($user);
         $data = [
-            'role_account_id' => $user->userPlans()->first()->id,
+            'role_account_id' => $user->roles()->first()->id,
         ];
 
         $response = $this->put('api/switch-account', $data, ['Accept' => 'application/json']);
+        $response->dump();
         $response->assertStatus(200);
     }
 }
