@@ -40,7 +40,13 @@ class AccountController extends Controller
 
     public function switchAccount(AccountRequest $request)
     {
-        $userRoleAccount = UserRole::findOrFail($request->role_account_id);
+        $userRoleAccount = UserRole::where([
+            'user_id' => auth()->user()->id,
+            'role_id' => $request->role_id,
+            'is_active' => false,
+        ])
+        ->first();
+
         $userActiveAccount = UserRole::active()
         ->first();
 

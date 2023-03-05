@@ -24,7 +24,7 @@ class AccountRequest extends FormRequest
     public function rules()
     {
         return [
-            'role_account_id' => 'required|exists:user_roles,id',
+            'role_id' => 'required|exists:roles,id',
         ];
     }
 }

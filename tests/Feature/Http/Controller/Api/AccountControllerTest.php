@@ -22,11 +22,12 @@ class AccountControllerTest extends TestCase
 
     public function test_account_details()
     {
+        /**planholder active to agent role */
         $planholder = User::factory()->create([
             'branch_id' => Branch::first()->id,
         ]);
-        $planholder->roles()->attach([2]); //planholder, agent
-        $planholder->roles()->attach([4], [
+        $planholder->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]); //planholder, agent
+        $planholder->roles()->attach([Role::ofName(Role::ROLE_AGENT)->id], [
             'is_active' => false,
         ]);
         $this->actingAs($planholder);
@@ -75,7 +76,10 @@ class AccountControllerTest extends TestCase
         $user = User::factory()->create([
             'branch_id' => Branch::first()->id,
         ]);
-        $user->roles()->attach([2, 4]);
+        $user->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]); //planholder, agent
+        $user->roles()->attach([Role::ofName(Role::ROLE_AGENT)->id], [
+            'is_active' => false,
+        ]);
 
         $user->userPlans()->attach(Plan::first(), [
             'billing_method' => Plan::YEARLY,
@@ -83,7 +87,7 @@ class AccountControllerTest extends TestCase
 
         $this->actingAs($user);
         $data = [
-            'role_account_id' => $user->roles()->first()->id,
+            'role_id' => Role::ofName(Role::ROLE_AGENT)->id,
         ];
 
         $response = $this->put('api/switch-account', $data, ['Accept' => 'application/json']);
