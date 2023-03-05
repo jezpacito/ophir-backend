@@ -23,10 +23,11 @@ class AccountController extends Controller
 
     public function accountDetails()
     {
-        $adminRole = User::ofRoles(Role::$role_users)
-        ->doesntExist();
+        $userRoles = User::ofRoles(Role::$role_users)
+        ->where('id', auth()->user()->id)
+        ->exists();
 
-        if ($adminRole) {
+        if (! $userRoles) {
             return response()->json([
                 'data' => new PlanholderResource(auth()->user()),
             ]);
@@ -40,8 +41,7 @@ class AccountController extends Controller
     public function switchAccount(AccountRequest $request)
     {
         $userRoleAccount = UserRole::findOrFail($request->role_account_id);
-        $userActiveAccount = UserRole::where('user_id', auth()->user()->id)
-        ->where('is_active', true)
+        $userActiveAccount = UserRole::active()
         ->first();
 
         FacadesDB::transaction(function () use ($userActiveAccount, $userRoleAccount) {

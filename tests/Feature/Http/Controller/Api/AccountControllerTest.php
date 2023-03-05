@@ -20,6 +20,22 @@ class AccountControllerTest extends TestCase
         $this->seed();
     }
 
+    public function test_account_details()
+    {
+        $planholder = User::factory()->create([
+            'branch_id' => Branch::first()->id,
+        ]);
+        $planholder->roles()->attach([2]); //planholder, agent
+        $planholder->roles()->attach([4], [
+            'is_active' => false,
+        ]);
+        $this->actingAs($planholder);
+
+        $response = $this->get('api/account-details', ['Accept' => 'application/json']);
+        $response->dump();
+        $response->assertStatus(200);
+    }
+
     public function test_referral_tree()
     {
         $agent = User::factory()->create([
@@ -45,7 +61,6 @@ class AccountControllerTest extends TestCase
         }
 
         $response = $this->get('api/referral-tree', ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 
