@@ -59,6 +59,9 @@ class UserController extends Controller
                 'password' => $password,
             ]));
 
+            /* attach role to user planholder */
+            $user->roles()->attach(Role::ofName($request->role)->id);
+
             /**Will send user credentials thru email */
             $credentials = ['username' => $user->username, 'password' => $password];
             $user->notify(new SendCredentials($credentials));
