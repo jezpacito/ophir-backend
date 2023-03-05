@@ -61,6 +61,7 @@ class AccountControllerTest extends TestCase
         }
 
         $response = $this->get('api/referral-tree', ['Accept' => 'application/json']);
+        $response->dump();
         $response->assertStatus(200);
     }
 

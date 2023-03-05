@@ -16,9 +16,9 @@ class UserPlanResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            // 'user' => $this->user,
-            // 'plan' => $this->plan,
-            // 'referred_by' => $this->referred_by,
+            'user' => $this->user,
+            'plan' => $this->plan,
+            'referred_by' => $this->referred_by,
         ];
     }
 }
