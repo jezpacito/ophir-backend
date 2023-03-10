@@ -169,6 +169,7 @@ class User extends Authenticatable implements HasMedia
      */
     protected $appends = [
         'profile_image',
+        'signature_image',
         'marketing_tools',
     ];
 
@@ -177,6 +178,8 @@ class User extends Authenticatable implements HasMedia
         // Allow only one file to be associated per collection
         $this->addMediaCollection('profile_image')
             ->singleFile();
+        $this->addMediaCollection('signature_image')
+        ->singleFile();
         $this->addMediaCollection('marketing_tools');
     }
 
@@ -188,6 +191,16 @@ class User extends Authenticatable implements HasMedia
     public function getProfileImageAttribute(): string
     {
         return $this->getFirstMediaUrl('profile_image');
+    }
+
+    /**
+     * Get file URL for signature_image
+     *
+     * @return string
+     */
+    public function getSignatureImageAttribute(): string
+    {
+        return $this->getFirstMediaUrl('signature_image');
     }
 
     /**
@@ -208,6 +221,16 @@ class User extends Authenticatable implements HasMedia
     public function getProfileImageUrl(): string
     {
         return $this->profile_image;
+    }
+
+    /**
+     * @return string
+     *
+     * @deprecated
+     */
+    public function getSignatureImageUrl(): string
+    {
+        return $this->signature_image;
     }
 
     /**

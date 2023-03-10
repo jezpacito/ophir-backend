@@ -40,6 +40,7 @@ class UserResource extends JsonResource
             'messenger' => $this->messenger,
             'twitter' => $this->twitter,
             'email' => $this->email,
+            'signature_image' => $this->signature_image,
             'profile_image' => $this->profile_image,
             'marketing_tools' => $this->marketing_tools,
         ];

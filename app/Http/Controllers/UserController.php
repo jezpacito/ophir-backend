@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UploadImageRequest;
 use App\Http\Requests\UserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\Role;
@@ -98,18 +99,20 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function uploadImage(User $user, Request $request)
+    public function uploadImage(User $user, UploadImageRequest $request)
     {
-        if ($request->profile_image) {
-            $split = explode('/', $request->profile_image);
+        $image = $request->image;
+        $imageType = $request->image_type;
+
+        if ($image && $imageType) {
+            $split = explode('/', $image);
             $type = explode(';', $split[1])[0];
 
-            $image = $request->profile_image;
             $imageName = Str::random(20).'.'.$type;
 
             $user->addMediaFromBase64($image)
                 ->usingFileName($imageName)
-                ->toMediaCollection('profile_image');
+                ->toMediaCollection($imageType);
 
             return response()->json([
                 'data' => new UserResource($user),
