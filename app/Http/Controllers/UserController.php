@@ -107,7 +107,7 @@ class UserController extends Controller
             $image = $request->profile_image;
             $imageName = Str::random(20).'.'.$type;
 
-            $user->addMediaFromBase64(json_decode($image))
+            $user->addMediaFromBase64($image)
                 ->usingFileName($imageName)
                 ->toMediaCollection('profile_image');
 
