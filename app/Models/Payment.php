@@ -32,7 +32,7 @@ class Payment extends Model
 
     public function planholder()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     protected function amount(): Attribute

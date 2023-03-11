@@ -6,6 +6,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Api\SanctumController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanholderController;
 use App\Http\Controllers\RoleController;
@@ -70,5 +71,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         Route::get('planholders', 'index');
         Route::post('planholders', 'store');
         Route::post('register-as-agent', 'registerAsAgent');
+    });
+
+    /** Payment controllers */
+    Route::controller(PaymentController::class)->group(function () {
+        Route::get('payments', 'index');
+        Route::get('planholder-payments/{planholder}', 'planholderPayments');
     });
 });
