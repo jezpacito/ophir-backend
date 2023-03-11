@@ -52,7 +52,7 @@ class PlanholderController extends Controller
         /* subscription */
         try {
             $userPlan = UserPlan::whereUserPlanUuid($user_plan_uuid)->first();
-            $planholder->subscribeToPlan($userPlan->id, (int) $request->amount, (string) $request->payment_type, $planholder->id);
+            $planholder->subscribeToPlan($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
         } catch (\Exception $e) {
             Log::error($e);
         }

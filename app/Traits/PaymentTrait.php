@@ -23,15 +23,16 @@ trait PaymentTrait
         }
     }
 
-    public function subscribeToPlan(int $userPlan, int $amount, string $paymentType, int $planholder)
+    public function subscribeToPlan(object $userPlan, int $amount, string $paymentType, object $planholder)
     {
         $referenceNumber = $this->processPayment($paymentType, $amount);
         Payment::create([
-            'user_id' => $planholder,
+            'user_id' => $planholder->id,
             'payment_uuid' => Str::orderedUuid(),
-            'user_plan_id' => $userPlan,
+            'user_plan_id' => $userPlan->id,
             'amount' => encrypt($amount),
             'referrence_number' => $referenceNumber,
+            'isPaid' => true,
         ]);
     }
 }
