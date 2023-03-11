@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('user_plan', function (Blueprint $table) {
             $table->id();
-            $table->uuid('user_plan_id')->nullable();
+            $table->uuid('user_plan_uuid')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('plan_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('referred_by_id')->nullable()->references('id')->nullOnDelete()->on('users')->comment('referred_by');

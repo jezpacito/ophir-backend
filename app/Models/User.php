@@ -256,7 +256,7 @@ class User extends Authenticatable implements HasMedia
     public function userPlans()
     {
         return $this->belongsToMany(Plan::class, 'user_plan')
-        ->withPivot('id', 'user_plan_id', 'is_active', 'referred_by_id', 'is_transferrable', 'billing_occurrence');
+        ->withPivot('id', 'user_plan_uuid', 'is_active', 'referred_by_id', 'is_transferrable', 'billing_occurrence');
     }
 
     public function beneficiaries()

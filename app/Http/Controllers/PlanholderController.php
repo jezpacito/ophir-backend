@@ -75,8 +75,13 @@ class PlanholderController extends Controller
                     [
                         'billing_occurrence' => $request->billing_occurrence,
                         'referred_by_id' => $request->referred_by_id,
-                        'user_plan_id' => Str::orderedUuid(),
+                        'user_plan_uuid' => Str::orderedUuid(),
                     ]);
+
+                /**create agent account for planholder */
+                $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
+                    'is_active' => false,
+                ]);
             }
 
             return $planholder;

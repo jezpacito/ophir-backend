@@ -25,6 +25,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+//register thru referral link
+Route::post('register-thru-link/{code}', [PlanholderController::class,'registerThruReferral']);
+
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
