@@ -27,6 +27,7 @@ class AgentPlanRequest extends FormRequest
         $billingMethods = implode(',', Plan::$billingMethod);
 
         return [
+            'user_id' => 'required|exists:users,id',
             'plan_id' => 'required|exists:plans,id',
             'referred_by_id' => 'nullable|exists:users,id',
             'billing_occurrence' => 'required|in:'.$billingMethods,

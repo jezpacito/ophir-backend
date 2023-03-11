@@ -2,12 +2,29 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\AgentPlanRequest;
 use App\Http\Requests\PlanRequest;
+use App\Http\Resources\PlanholderResource;
 use App\Http\Resources\PlanResource;
 use App\Models\Plan;
+use App\Models\User;
 
 class PlanController extends Controller
 {
+    public function addPlan(AgentPlanRequest $request)
+    {
+        $planholder = User::findOrFail($request->user_id);
+        $plan = Plan::findOrFail($request->plan_id);
+
+        $planholder->userPlans()
+        ->attach($plan, $request->except('plan_id'));
+
+        return response()->json([
+            'data' => new PlanholderResource($planholder),
+            'message' => 'success',
+        ], 200);
+    }
+
     /**
      * Display a listing of the resource.
      *

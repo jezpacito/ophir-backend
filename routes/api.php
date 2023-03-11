@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\ActivityLogController;
-use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Api\SanctumController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BranchController;
@@ -50,7 +49,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('plans', PlanController::class);
 
     /*single route apis*/
-    Route::post('add-plan', [AgentController::class, 'addPlan']);
+    Route::post('add-plan', [PlanController::class, 'addPlan']);
     Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);
     Route::get('activity-logs', [ActivityLogController::class, 'index']);
 

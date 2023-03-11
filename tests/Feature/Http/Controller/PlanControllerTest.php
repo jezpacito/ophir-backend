@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Http\Controller;
 
+use App\Models\Branch;
 use App\Models\Plan;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -16,6 +17,21 @@ class PlanControllerTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+    }
+
+    public function test_add_another_plan()
+    {
+        $this->actingAs(User::factory()->create(['branch_id' => Branch::first()->id]));
+
+        $reffered = User::factory()->create();
+        $data = [
+            'user_id' => auth()->user()->id,
+            'plan_id' => Plan::first()->id,
+            'billing_occurrence' => Plan::YEARLY,
+            'referred_by_id' => $reffered->id,
+        ];
+        $response = $this->post('api/add-plan', $data, ['Accept' => 'application/json']);
+        $response->assertStatus(200);
     }
 
     /**
