@@ -23,12 +23,12 @@ class UserObserver
             if ($query->exists()) {
                 $username = $username.$query->count();
             }
+
+            $user->referral_code = Str::random(12);
             $user->username = $username;
+            $user->user_uuid = Str::uuid();
             $user->save();
         }
-
-        $user->referral_code = Str::random(12);
-        $user->save();
     }
 
     /**

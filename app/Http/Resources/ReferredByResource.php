@@ -17,6 +17,7 @@ class ReferredByResource extends JsonResource
         return[
             'id' => $this->id,
             'branch' => $this->branch,
+            'referral_code' => $this->referral_code,
             'username' => $this->username,
             'lastname' => $this->lastname,
             'firstname' => $this->firstname,

@@ -37,6 +37,7 @@ class PlanholderController extends Controller
             $planholder = User::create(array_merge($request->except('role', 'beneficiaries', 'plan_id', 'billing_occurrence', 'referred_by_id'),
                 [
                     'password' => $password,
+                    'is_verified' => false,
                 ]));
 
             /* Will send planholder credentials thru email */
@@ -71,10 +72,15 @@ class PlanholderController extends Controller
                     'is_active' => $is_active,
                 ]);
 
+                $referred_by = User::first(); //ophir company
+                if ($request->referral_code) {
+                    $referred_by = User::whereReferralCode($request->referral_code)->first();
+                }
+
                 $planholder->userPlans()->attach($plan,
                     [
                         'billing_occurrence' => $request->billing_occurrence,
-                        'referred_by_id' => $request->referred_by_id,
+                        'referred_by_id' => $referred_by->id,
                         'user_plan_uuid' => Str::orderedUuid(),
                     ]);
 

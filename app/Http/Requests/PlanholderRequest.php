@@ -34,7 +34,7 @@ class PlanholderRequest extends FormRequest
                 'lastname' => 'sometimes|string|max:255',
                 'email' => 'sometimes|unique:users,email|string|max:255',
                 'role' => 'required|string|exists:roles,name',
-                'referred_by_id' => 'sometimes|exists:users,id',
+                'referral_code' => 'sometimes|exists:users,referral_code',
                 'plan_id' => 'required|exists:plans,id',
                 'billing_occurrence' => 'required|in:'.$billingMethods,
                 'branch_id' => 'required|exists:branches,id',

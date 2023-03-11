@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('user_uuid')->nullable();
             $table->foreignId('branch_id')->nullable()->constrained()->nullOnDelete();
             $table->string('username')->unique()->nullable();
             $table->string('lastname')->index()->nullable();
@@ -39,7 +40,7 @@ return new class extends Migration
             $table->string('twitter')->nullable();
             $table->string('email')->unique();
             $table->string('referral_code')->nullable();
-            $table->boolean('account_status')->default(true);
+            $table->boolean('is_verified')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

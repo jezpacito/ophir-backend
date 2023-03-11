@@ -124,6 +124,8 @@ class User extends Authenticatable implements HasMedia
     use InteractsWithMedia;
     use LogsActivityTrait;
 
+    const COMPANY_REFFERRAL_CODE = 'OPHIRAGENT';
+
     const ROLE_ADMIN = 'Admin';
 
     const ROLE_DIRECTOR = 'Director';

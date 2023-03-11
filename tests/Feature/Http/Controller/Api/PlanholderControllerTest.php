@@ -77,7 +77,6 @@ class PlanholderControllerTest extends TestCase
             'branch_id' => Branch::first()->id,
             'plan_id' => Plan::first()->id,
             'billing_occurrence' => Plan::ANNUAL,
-            'referred_by_id' => $user->id,
         ];
 
         $response = $this->post('api/planholders', $data, ['Accept' => 'application/json']);
@@ -101,6 +100,71 @@ class PlanholderControllerTest extends TestCase
         }
 
         $this->assertDatabaseHas('user_plan', [
+            'plan_id' => $data['plan_id'],
+            'is_active' => true,
+            'is_transferrable' => true,
+            'billing_occurrence' => $data['billing_occurrence'],
+        ]);
+
+        $this->assertDatabaseHas('user_roles', [
+            'role_id' => Role::ofName($data['role'])->id,
+            'is_active' => true,
+        ]);
+
+        $this->assertDatabaseHas('user_roles', [
+            'role_id' => Role::ofName(Role::ROLE_AGENT)->id,
+            'is_active' => false,
+        ]);
+    }
+
+    /**
+     * A basic feature test example.
+     *
+     * @return void
+     */
+    public function test_register_planholder_thru_link()
+    {
+        $this->actingAs($user = User::factory()->create());
+
+        $beneficiaries = Beneficiary::factory()->count(2)->make();
+        unset($beneficiaries[0]['user_id']);
+        unset($beneficiaries[1]['user_id']);
+
+        $data = [
+            'firstname' => $this->faker()->firstName(),
+            'middlename' => $this->faker()->lastName(),
+            'lastname' => $this->faker()->lastName(),
+            'email' => $this->faker()->email(),
+            'role' => Role::ROLE_PLANHOLDER,
+            'beneficiaries' => $beneficiaries->toArray(),
+            'branch_id' => Branch::first()->id,
+            'plan_id' => Plan::first()->id,
+            'billing_occurrence' => Plan::ANNUAL,
+            'referral_code' => $user->referral_code, // different from test_add_planholder
+        ];
+
+        $response = $this->post('api/register-thru-link', $data, ['Accept' => 'application/json']);
+        $response->dump();
+        $response->assertStatus(201);
+
+        $this->assertDatabaseHas('users', [
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'email' => $data['email'],
+            'branch_id' => $data['branch_id'],
+        ]);
+
+        foreach ($beneficiaries as $beneficiary) {
+            $this->assertDatabaseHas('beneficiaries', [
+                'firstname' => $beneficiary->firstname,
+                'lastname' => $beneficiary->lastname,
+                'relationship' => $beneficiary->relationship,
+                'birthdate' => $beneficiary->birthdate,
+            ]);
+        }
+
+        $this->assertDatabaseHas('user_plan', [
+            'referred_by_id' => $user->id,
             'plan_id' => $data['plan_id'],
             'is_active' => true,
             'is_transferrable' => true,
