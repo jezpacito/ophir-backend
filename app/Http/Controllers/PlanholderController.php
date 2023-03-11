@@ -37,7 +37,7 @@ class PlanholderController extends Controller
             $planholder = User::create(array_merge($request->except('role', 'beneficiaries', 'plan_id', 'billing_occurrence', 'referred_by_id', 'payment_type', 'amount'),
                 [
                     'password' => $password,
-                    'is_verified' => false,
+                    'is_verified' => $request->referral_code ? false : true,
                 ]));
 
             /* Will send planholder credentials thru email */

@@ -47,7 +47,6 @@ class PaymentControllerTest extends TestCase
         }
 
         $response = $this->get('api/payments', ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 
@@ -77,7 +76,6 @@ class PaymentControllerTest extends TestCase
         }
 
         $response = $this->get("api/planholder-payments/$planholder->id", ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 }

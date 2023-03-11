@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::post('register-thru-link/{code?}', [PlanholderController::class, 'store']);
+Route::post('register-thru-link', [PlanholderController::class, 'store']);
 Route::get('branches', [BranchController::class, 'index']);
 Route::get('plans', [PlanController::class, 'index']);
 
