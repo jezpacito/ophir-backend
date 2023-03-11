@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Models\Payment;
 use App\Models\User;
+use App\Observers\PaymentObserver;
 use App\Observers\UserObserver;
 use Illuminate\Support\ServiceProvider;
 
@@ -31,5 +33,6 @@ class AppServiceProvider extends ServiceProvider
     private function observers()
     {
         User::observe(UserObserver::class);
+        Payment::observe(PaymentObserver::class);
     }
 }

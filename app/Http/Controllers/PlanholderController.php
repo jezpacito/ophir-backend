@@ -5,10 +5,9 @@ namespace App\Http\Controllers;
 use App\Http\Requests\PlanholderRequest;
 use App\Http\Requests\RegisterAsAgentRequest;
 use App\Http\Resources\PlanholderResource;
-use App\Models\Beneficiary;
-use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserPlan;
 use App\Notifications\SendCredentials;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -32,9 +31,10 @@ class PlanholderController extends Controller
     public function store(PlanholderRequest $request)
     {
         $password = Str::random(12);
+        $user_plan_uuid = Str::orderedUuid();
 
-        $planholder = DB::transaction(function () use ($password, $request) {
-            $planholder = User::create(array_merge($request->except('role', 'beneficiaries', 'plan_id', 'billing_occurrence', 'referred_by_id'),
+        $planholder = DB::transaction(function () use ($password, $request, $user_plan_uuid) {
+            $planholder = User::create(array_merge($request->except('role', 'beneficiaries', 'plan_id', 'billing_occurrence', 'referred_by_id', 'payment_type', 'amount'),
                 [
                     'password' => $password,
                     'is_verified' => false,
@@ -44,54 +44,18 @@ class PlanholderController extends Controller
             $credentials = ['username' => $planholder->username, 'password' => $password];
             $planholder->notify(new SendCredentials($credentials));
             Log::info('planholder credentials sent: '.$planholder->username.' pass: '.$password);
-
-            if ($request->role === Role::ROLE_PLANHOLDER) {
-                /* creating beneficiaries of planholders */
-                foreach ($request->beneficiaries as $beneficiary) {
-                    Beneficiary::create(array_merge(['user_id' => $planholder->id], $beneficiary));
-                }
-
-                /* create plan for planholder */
-                $plan = Plan::findOrFail($request->plan_id);
-
-                /* is_active column for switching account roles
-                 *  whoevers has a is_active===true user_role
-                 * would be the default profile after login
-                 *
-                 * NOTE: should only have one is_active status in user roles
-                 */
-
-                $is_active = true;
-                if ($planholder->userPlans()->count() >= 1) {
-                    /* is_active column in user_role table */
-                    $is_active = false;
-                }
-
-                /* attach role to user planholder */
-                $planholder->roles()->attach(Role::ofName($request->role)->id, [
-                    'is_active' => $is_active,
-                ]);
-
-                $referred_by = User::first(); //ophir company
-                if ($request->referral_code) {
-                    $referred_by = User::whereReferralCode($request->referral_code)->first();
-                }
-
-                $planholder->userPlans()->attach($plan,
-                    [
-                        'billing_occurrence' => $request->billing_occurrence,
-                        'referred_by_id' => $referred_by->id,
-                        'user_plan_uuid' => Str::orderedUuid(),
-                    ]);
-
-                /**create agent account for planholder */
-                $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
-                    'is_active' => false,
-                ]);
-            }
+            $planholder->registrationDetails($request, $planholder, $user_plan_uuid);
 
             return $planholder;
         });
+
+        /* subscription */
+        try {
+            $userPlan = UserPlan::whereUserPlanUuid($user_plan_uuid)->first();
+            $planholder->subscribeToPlan($userPlan->id, (int) $request->amount, (string) $request->payment_type, $planholder->id);
+        } catch (\Exception $e) {
+            Log::error($e);
+        }
 
         return response()->json([
             'data' => new PlanholderResource($planholder),

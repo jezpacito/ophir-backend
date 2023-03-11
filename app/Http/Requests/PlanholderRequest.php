@@ -28,6 +28,8 @@ class PlanholderRequest extends FormRequest
 
         if ($this->isMethod('post')) {
             return [
+                'payment_type' => 'required|in:Online,Manual',
+                'amount' => 'required|min:0',
                 'beneficiaries' => 'sometimes|array|min:1|max:2',
                 'firstname' => 'sometimes|string|max:255',
                 'middlename' => 'sometimes|string|max:255',

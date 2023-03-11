@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use App\Traits\LogsActivityTrait;
+use App\Traits\PaymentTrait;
+use App\Traits\PlanholderRegistration;
 use Hash;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -123,6 +125,8 @@ class User extends Authenticatable implements HasMedia
     use HasApiTokens, HasFactory, Notifiable;
     use InteractsWithMedia;
     use LogsActivityTrait;
+    use PaymentTrait;
+    use PlanholderRegistration;
 
     const COMPANY_REFFERRAL_CODE = 'OPHIRAGENT';
 
@@ -264,6 +268,11 @@ class User extends Authenticatable implements HasMedia
     public function beneficiaries()
     {
         return $this->hasMany(Beneficiary::class);
+    }
+
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
     }
 
     public function setPasswordAttribute($value)

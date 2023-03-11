@@ -68,6 +68,7 @@ class PlanholderControllerTest extends TestCase
         unset($beneficiaries[1]['user_id']);
 
         $data = [
+            'payment_type' => 'Online',
             'firstname' => $this->faker()->firstName(),
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
@@ -77,6 +78,7 @@ class PlanholderControllerTest extends TestCase
             'branch_id' => Branch::first()->id,
             'plan_id' => Plan::first()->id,
             'billing_occurrence' => Plan::ANNUAL,
+            'amount' => 100,
         ];
 
         $response = $this->post('api/planholders', $data, ['Accept' => 'application/json']);
@@ -131,6 +133,8 @@ class PlanholderControllerTest extends TestCase
         unset($beneficiaries[1]['user_id']);
 
         $data = [
+            'payment_type' => 'Online',
+            'amount' => 100,
             'firstname' => $this->faker()->firstName(),
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
