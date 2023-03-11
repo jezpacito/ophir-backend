@@ -33,7 +33,6 @@ class AccountControllerTest extends TestCase
         $this->actingAs($planholder);
 
         $response = $this->get('api/account-details', ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 
@@ -47,7 +46,7 @@ class AccountControllerTest extends TestCase
         $agent->roles()->attach([2, 4]); //planholder, agent
 
         $agent->userPlans()->attach(Plan::first(), [
-            'billing_method' => Plan::YEARLY,
+            'billing_occurrence' => Plan::YEARLY,
         ]);
 
         $users = User::factory()->count(50)->create()->toArray();
@@ -56,13 +55,12 @@ class AccountControllerTest extends TestCase
             $user = User::find($user['id']);
             $user->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]);
             $user->userPlans()->attach(Plan::ofName(Plan::ST_CLAIRE)->id, [
-                'billing_method' => Plan::YEARLY,
+                'billing_occurrence' => Plan::YEARLY,
                 'referred_by_id' => $agent->id,
             ]);
         }
 
         $response = $this->get('api/referral-tree', ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 
@@ -82,7 +80,7 @@ class AccountControllerTest extends TestCase
         ]);
 
         $user->userPlans()->attach(Plan::first(), [
-            'billing_method' => Plan::YEARLY,
+            'billing_occurrence' => Plan::YEARLY,
         ]);
 
         $this->actingAs($user);
@@ -91,7 +89,6 @@ class AccountControllerTest extends TestCase
         ];
 
         $response = $this->put('api/switch-account', $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 }

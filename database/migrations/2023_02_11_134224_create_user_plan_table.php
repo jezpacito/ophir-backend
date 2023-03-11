@@ -15,12 +15,13 @@ return new class extends Migration
     {
         Schema::create('user_plan', function (Blueprint $table) {
             $table->id();
+            $table->uuid('user_plan_id')->nullable();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('plan_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('referred_by_id')->nullable()->references('id')->nullOnDelete()->on('users')->comment('referred_by');
             $table->boolean('is_active')->default(true);
             $table->boolean('is_transferrable')->default(true);
-            $table->string('billing_method')->comment('could be Monthly, Yearly, Quarterly, Semi-Annually, Annual')->nullable();
+            $table->string('billing_occurrence')->comment('could be Monthly, Yearly, Quarterly, Semi-Annually, Annual')->nullable();
             $table->timestamps();
         });
     }

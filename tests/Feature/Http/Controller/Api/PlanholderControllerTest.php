@@ -29,7 +29,6 @@ class PlanholderControllerTest extends TestCase
         $user->roles()->attach(Role::ofName('Planholder')->id);
 
         $response = $this->get('api/planholders', ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 
@@ -46,7 +45,6 @@ class PlanholderControllerTest extends TestCase
             'role' => 'Agent',
         ];
         $response = $this->post('api/register-as-agent', $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('user_roles', [
@@ -78,7 +76,7 @@ class PlanholderControllerTest extends TestCase
             'beneficiaries' => $beneficiaries->toArray(),
             'branch_id' => Branch::first()->id,
             'plan_id' => Plan::first()->id,
-            'billing_method' => Plan::ANNUAL,
+            'billing_occurrence' => Plan::ANNUAL,
             'referred_by_id' => $user->id,
         ];
 
@@ -106,7 +104,7 @@ class PlanholderControllerTest extends TestCase
             'plan_id' => $data['plan_id'],
             'is_active' => true,
             'is_transferrable' => true,
-            'billing_method' => $data['billing_method'],
+            'billing_occurrence' => $data['billing_occurrence'],
         ]);
 
         $this->assertDatabaseHas('user_roles', [

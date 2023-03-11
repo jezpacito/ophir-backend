@@ -31,7 +31,7 @@ class AgentControllerTest extends TestCase
         $reffered = User::factory()->create();
         $data = [
             'plan_id' => Plan::first()->id,
-            'billing_method' => Plan::YEARLY,
+            'billing_occurrence' => Plan::YEARLY,
             'referred_by_id' => $reffered->id,
         ];
         $response = $this->post('api/add-plan', $data, ['Accept' => 'application/json']);

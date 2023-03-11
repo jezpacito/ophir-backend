@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\User;
+use Illuminate\Support\Str;
 
 class UserObserver
 {
@@ -25,6 +26,9 @@ class UserObserver
             $user->username = $username;
             $user->save();
         }
+
+        $user->referral_code = Str::random(12);
+        $user->save();
     }
 
     /**

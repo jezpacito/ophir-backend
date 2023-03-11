@@ -29,7 +29,7 @@ class AgentPlanRequest extends FormRequest
         return [
             'plan_id' => 'required|exists:plans,id',
             'referred_by_id' => 'nullable|exists:users,id',
-            'billing_method' => 'required|in:'.$billingMethods,
+            'billing_occurrence' => 'required|in:'.$billingMethods,
         ];
     }
 }

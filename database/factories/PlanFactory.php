@@ -20,7 +20,7 @@ class PlanFactory extends Factory
             'name' => $this->faker->safeColorName(),
             'description' => $this->faker->paragraph(),
             'price' => $this->faker->numberBetween(10000, 9000),
-            'year_period' => $this->faker->numberBetween(1, 5),
+            'term_period' => $this->faker->numberBetween(1, 5),
         ];
     }
 }

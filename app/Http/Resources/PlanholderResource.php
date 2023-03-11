@@ -43,6 +43,7 @@ class PlanholderResource extends JsonResource
             'messenger' => $this->messenger,
             'twitter' => $this->twitter,
             'email' => $this->email,
+            'referral_code' => $this->referral_code,
         ];
     }
 }

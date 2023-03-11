@@ -27,7 +27,7 @@ class PlanRequest extends FormRequest
             'name' => 'sometimes|string|max:255',
             'description' => 'sometimes|string|max:650',
             'price' => 'sometimes|integer|min:0',
-            'year_period' => 'sometimes|min:0',
+            'term_period' => 'sometimes|min:0',
             'is_active' => 'sometimes|boolean',
             'is_transferrable' => 'sometimes|boolean',
         ];

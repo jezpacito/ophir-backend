@@ -38,6 +38,8 @@ return new class extends Migration
             $table->string('messenger')->nullable();
             $table->string('twitter')->nullable();
             $table->string('email')->unique();
+            $table->string('referral_code')->nullable();
+            $table->boolean('account_status')->default(true);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();

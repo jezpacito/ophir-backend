@@ -34,7 +34,7 @@ class PlanholderController extends Controller
         $password = Str::random(12);
 
         $planholder = DB::transaction(function () use ($password, $request) {
-            $planholder = User::create(array_merge($request->except('role', 'beneficiaries', 'plan_id', 'billing_method', 'referred_by_id'),
+            $planholder = User::create(array_merge($request->except('role', 'beneficiaries', 'plan_id', 'billing_occurrence', 'referred_by_id'),
                 [
                     'password' => $password,
                 ]));
@@ -73,8 +73,9 @@ class PlanholderController extends Controller
 
                 $planholder->userPlans()->attach($plan,
                     [
-                        'billing_method' => $request->billing_method,
+                        'billing_occurrence' => $request->billing_occurrence,
                         'referred_by_id' => $request->referred_by_id,
+                        'user_plan_id' => Str::orderedUuid(),
                     ]);
             }
 

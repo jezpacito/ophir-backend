@@ -13,10 +13,10 @@ use Illuminate\Database\Eloquent\Model;
  * @property string $name
  * @property string|null $description
  * @property int|null $price
- * @property string|null $year_period
+ * @property string|null $term_period
  * @property int $is_active
  * @property int $is_transferrable
- * @property string|null $billing_method could be Monthly, Yearly, Quarterly, Semi-Annually, Annual
+ * @property string|null $billing_occurrence could be Monthly, Yearly, Quarterly, Semi-Annually, Annual
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
@@ -69,8 +69,10 @@ class Plan extends Model
         'name',
         'description',
         'price',
-        'year_period',
+        'commission',
         'is_active',
+        'term_period',
+        'contestability_period',
     ];
 
     public static $plans = [
@@ -90,7 +92,7 @@ class Plan extends Model
     public function userPlans()
     {
         return $this->belongsToMany(User::class, 'user_plan')
-        ->withPivot('is_active', 'referred_by_id', 'is_transferrable', 'billing_method');
+        ->withPivot('id', 'user_plan_id', 'is_active', 'referred_by_id', 'is_transferrable', 'billing_occurrence');
     }
 
     /**

@@ -58,7 +58,6 @@ class UserControllerTest extends TestCase
         ];
 
         $response = $this->post('api/users', $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('users', [
@@ -86,7 +85,6 @@ class UserControllerTest extends TestCase
         ];
 
         $response = $this->post("api/upload-image/$user->id", $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 }

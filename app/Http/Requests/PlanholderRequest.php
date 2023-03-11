@@ -36,7 +36,7 @@ class PlanholderRequest extends FormRequest
                 'role' => 'required|string|exists:roles,name',
                 'referred_by_id' => 'sometimes|exists:users,id',
                 'plan_id' => 'required|exists:plans,id',
-                'billing_method' => 'required|in:'.$billingMethods,
+                'billing_occurrence' => 'required|in:'.$billingMethods,
                 'branch_id' => 'required|exists:branches,id',
                 'gender' => 'nullable|string|max:50',
                 'birthdate' => 'nullable|date',
