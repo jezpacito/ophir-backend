@@ -30,6 +30,7 @@ class PlanRequest extends FormRequest
             'term_period' => 'sometimes|min:0',
             'is_active' => 'sometimes|boolean',
             'is_transferrable' => 'sometimes|boolean',
+            'commission' => 'sometimes|string',
         ];
     }
 }
