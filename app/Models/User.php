@@ -289,4 +289,10 @@ class User extends Authenticatable implements HasMedia
             $query->whereIn('name', $roles);
         });
     }
+
+    public function scopeUnverified(Builder $query): void
+    {
+        $query->whereIsVerified(false)
+        ->whereIsLocked(false);
+    }
 }

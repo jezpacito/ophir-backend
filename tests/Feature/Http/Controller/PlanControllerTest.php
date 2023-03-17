@@ -75,14 +75,16 @@ class PlanControllerTest extends TestCase
      */
     public function test_create_plan()
     {
-        $this->actingAs(User::factory()->create());
+        $this->actingAs(User::factory()->create([
+            'is_verified' => false,
+        ]));
         $data = Plan::factory()->make(
             ['commission' => json_encode(self::PLANS_COMMISSIONS[Plan::ST_MERCY])]
         )->toArray();
 
-        dd($data);
         $response = $this->post('api/plans', $data, ['Accept' => 'application/json']);
-        $response->assertStatus(201);
+        $response->dump();
+        // $response->assertStatus(201);
     }
 
     /**

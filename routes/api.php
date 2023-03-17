@@ -40,7 +40,7 @@ Route::get('upload-profile', function () {
     ->addMedia(public_path('demo/test2.jpg'))
     ->toMediaCollection('profile_image');
 });
-Route::group(['middleware' => ['auth:sanctum']], function () {
+Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function () {
     /*api resources*/
     Route::apiResource('users', UserController::class);
     Route::apiResource('branches', BranchController::class);
