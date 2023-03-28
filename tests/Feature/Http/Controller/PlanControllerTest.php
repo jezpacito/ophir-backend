@@ -83,8 +83,7 @@ class PlanControllerTest extends TestCase
         )->toArray();
 
         $response = $this->post('api/plans', $data, ['Accept' => 'application/json']);
-        $response->dump();
-        // $response->assertStatus(201);
+        $response->assertStatus(201);
     }
 
     /**
