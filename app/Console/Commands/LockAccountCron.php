@@ -30,7 +30,7 @@ class LockAccountCron extends Command
      */
     public function handle()
     {
-        Log::info('this is a test cron is working fine!');
+        Log::info('Lock Account Cron');
 
         $users = User::unverified()->get();
         Log::info('users count:'.$users->count());
