@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use App\Models\Payment;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 trait PaymentTrait
@@ -26,7 +27,9 @@ trait PaymentTrait
     public function subscribeToPlan(object $userPlan, int $amount, string $paymentType, object $planholder)
     {
         $referenceNumber = $this->processPayment($paymentType, $amount);
-        Payment::create([
+        Log::info('referenceNumber: '.$referenceNumber);
+
+        $payment = Payment::create([
             'user_id' => $planholder->id,
             'payment_uuid' => Str::orderedUuid(),
             'user_plan_id' => $userPlan->id,
@@ -34,5 +37,7 @@ trait PaymentTrait
             'referrence_number' => $referenceNumber,
             'isPaid' => true,
         ]);
+
+        Log::info('payemnt created: '.$payment);
     }
 }

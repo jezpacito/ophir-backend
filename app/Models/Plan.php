@@ -46,7 +46,7 @@ class Plan extends Model
     use HasFactory;
     use LogsActivityTrait;
 
-    const CURRENT_YEAR_PERIOD = 5;
+    // const CURRENT_YEAR_PERIOD = 5;
 
     const ST_MERCY = 'St. Mercy';
 
@@ -55,15 +55,13 @@ class Plan extends Model
     const ST_CLAIRE = 'St. Claire';
 
     /** BILLING METHODS */
-    const ANNUAL = 'Annual';
+    // const ANNUAL = 'Annual';
 
-    const SEMI_ANNUAL = 'Semi-Annually';
+    // const SEMI_ANNUAL = 'Semi-Annually';
 
-    const QUARTERLY = 'Quarterly';
+    // const QUARTERLY = 'Quarterly';
 
-    const YEARLY = 'Yearly';
-
-    const MONTHLY = 'Monthly';
+    // const MONTHLY = 'Monthly';
 
     protected $fillable = [
         'name',
@@ -81,13 +79,12 @@ class Plan extends Model
         self::ST_CLAIRE,
     ];
 
-    public static $billingMethod = [
-        self::ANNUAL,
-        self::SEMI_ANNUAL,
-        self::QUARTERLY,
-        self::YEARLY,
-        self::MONTHLY,
-    ];
+    // public static $billingMethod = [
+    //     self::ANNUAL,
+    //     self::SEMI_ANNUAL,
+    //     self::QUARTERLY,
+    //     self::MONTHLY,
+    // ];
 
     public function userPlans()
     {
