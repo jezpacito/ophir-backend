@@ -2,6 +2,7 @@
 
 use App\Models\Plan;
 use App\Models\Role;
+use App\Types\PeriodType;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -37,7 +38,7 @@ return new class extends Migration
 
             Plan::create([
                 'name' => $plan,
-                'term_period' => Plan::CURRENT_YEAR_PERIOD,
+                'term_period' => PeriodType::CURRENT_YEAR_PERIOD,
                 'price' => 3000,
                 'commission' => json_encode($commissions),
             ]);
