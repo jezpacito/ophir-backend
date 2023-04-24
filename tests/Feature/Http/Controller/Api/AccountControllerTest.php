@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
+use App\Types\PeriodType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -46,7 +47,7 @@ class AccountControllerTest extends TestCase
         $agent->roles()->attach([2, 4]); //planholder, agent
 
         $agent->userPlans()->attach(Plan::first(), [
-            'billing_occurrence' => Plan::YEARLY,
+            'billing_occurrence' => PeriodType::ANNUAL->label(),
         ]);
 
         $users = User::factory()->count(50)->create()->toArray();
@@ -55,7 +56,7 @@ class AccountControllerTest extends TestCase
             $user = User::find($user['id']);
             $user->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]);
             $user->userPlans()->attach(Plan::ofName(Plan::ST_CLAIRE)->id, [
-                'billing_occurrence' => Plan::YEARLY,
+                'billing_occurrence' => PeriodType::ANNUAL->label(),
                 'referred_by_id' => $agent->id,
             ]);
         }
@@ -80,7 +81,7 @@ class AccountControllerTest extends TestCase
         ]);
 
         $user->userPlans()->attach(Plan::first(), [
-            'billing_occurrence' => Plan::YEARLY,
+            'billing_occurrence' => PeriodType::ANNUAL->label(),
         ]);
 
         $this->actingAs($user);

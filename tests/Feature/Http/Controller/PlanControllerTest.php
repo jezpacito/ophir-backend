@@ -6,6 +6,7 @@ use App\Models\Branch;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
+use App\Types\PeriodType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -46,7 +47,7 @@ class PlanControllerTest extends TestCase
         $data = [
             'user_id' => auth()->user()->id,
             'plan_id' => Plan::first()->id,
-            'billing_occurrence' => Plan::YEARLY,
+            'billing_occurrence' => PeriodType::ANNUAL->label(),
             'referred_by_id' => $reffered->id,
         ];
         $response = $this->post('api/add-plan', $data, ['Accept' => 'application/json']);
