@@ -15,10 +15,9 @@ trait PlanholderRegistration
         if ($request->role === Role::ROLE_PLANHOLDER) {
             /* creating beneficiaries of planholders */
             foreach ($request->beneficiaries as $beneficiary) {
-
                 Beneficiary::create(array_merge(['user_id' => $planholder->id], $beneficiary));
 
-                Log::info('beneficiary creation: '. json_encode($beneficiary));
+                Log::info('beneficiary creation: '.json_encode($beneficiary));
             }
 
             /* create plan for planholder */
@@ -61,7 +60,7 @@ trait PlanholderRegistration
             $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
                 'is_active' => false,
             ]);
-            Log::info('created agent accountfor planholder : ');
+            Log::info('created agent accountfor planholder '. json_encode($planholder));
         }
     }
 }

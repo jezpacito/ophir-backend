@@ -38,6 +38,6 @@ trait PaymentTrait
             'isPaid' => true,
         ]);
 
-        Log::info('payemnt created: '.$payment);
+        Log::info('payment created: '.$payment);
     }
 }

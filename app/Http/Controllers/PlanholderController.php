@@ -45,7 +45,6 @@ class PlanholderController extends Controller
             $planholder->notify(new SendCredentials($credentials));
             Log::info('planholder credentials sent: '.$planholder->username.' pass: '.$password);
 
-
             $planholder->registrationDetails($request, $planholder, $user_plan_uuid);
 
             return $planholder;
