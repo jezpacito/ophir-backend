@@ -76,6 +76,7 @@ class PaymentControllerTest extends TestCase
         }
 
         $response = $this->get("api/planholder-payments/$planholder->id", ['Accept' => 'application/json']);
+        $response->dump();
         $response->assertStatus(200);
     }
 }

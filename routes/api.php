@@ -48,6 +48,25 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
     Route::apiResource('beneficiaries', BeneficiaryController::class);
     Route::apiResource('plans', PlanController::class);
 
+    /**
+     * @todo Transfer Account
+     * 
+     * transfer plan should be transferrable
+     * 
+     */
+
+    /**
+     * @todo
+     * agent add planholder
+     * payment shoukld be pending
+     * user account for approval
+     */
+    
+     /**
+      * api for totals dashboards
+      */
+
+      
     /*single route apis*/
     Route::post('add-plan', [PlanController::class, 'addPlan']);
     Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);
@@ -70,6 +89,7 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
         Route::get('planholders', 'index');
         Route::post('planholders', 'store');
         Route::post('register-as-agent', 'registerAsAgent');
+        //excluded planholder has default agent account
     });
 
     /** Payment controllers */

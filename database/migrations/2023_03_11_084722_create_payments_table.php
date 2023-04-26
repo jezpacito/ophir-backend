@@ -13,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
+        /**
+         * @todo add status payment
+         */
         Schema::create('payments', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->string('payment_uuid');
             $table->unsignedBigInteger('user_plan_id')->nullable();
             $table->string('amount');
-            $table->boolean('isPaid')->default(false);
+            $table->boolean('is_paid')->default(false);
             $table->string('referrence_number');
             $table->timestamps();
         });

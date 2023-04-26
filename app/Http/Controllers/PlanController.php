@@ -19,6 +19,26 @@ class PlanController extends Controller
         $planholder->userPlans()
         ->attach($plan, $request->except('plan_id'));
 
+        /**
+         * @todo payment for add plan
+         * payment status should be for approval
+         * payment should be approve of branch oraadmin
+         * 
+         */
+
+
+         /**
+          * 
+          * @todo Transfer Plan
+            * two options
+            * existing planholder'
+            * new planholder
+            * referrel should be the agent if new user
+            
+          *
+
+          */
+
         return response()->json([
             'data' => new PlanholderResource($planholder),
             'message' => 'success',

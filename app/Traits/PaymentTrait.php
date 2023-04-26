@@ -35,7 +35,7 @@ trait PaymentTrait
             'user_plan_id' => $userPlan->id,
             'amount' => encrypt($amount),
             'referrence_number' => $referenceNumber,
-            'isPaid' => true,
+            'is_paid' => true,
         ]);
 
         Log::info('payment created: '.$payment);

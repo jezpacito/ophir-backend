@@ -185,7 +185,7 @@ class User extends Authenticatable implements HasMedia
         $this->addMediaCollection('profile_image')
             ->singleFile();
         $this->addMediaCollection('signature_image')
-        ->singleFile();
+            ->singleFile();
         $this->addMediaCollection('marketing_tools');
     }
 
