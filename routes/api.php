@@ -26,8 +26,8 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('register-thru-link', [PlanholderController::class, 'store']);
-Route::get('branches', [BranchController::class, 'index']);
-Route::get('plans', [PlanController::class, 'index']);
+Route::get('public-branches', [BranchController::class, 'index']);
+Route::get('public-plans', [PlanController::class, 'index']);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -49,8 +49,10 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
     Route::apiResource('plans', PlanController::class);
 
     /**
+     * @todo
      * api for totals dashboards
-     */
+     * 
+    */
 
     /*single route apis*/
     Route::post('add-plan', [PlanController::class, 'addPlan']);
@@ -84,4 +86,11 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
         Route::get('planholder-payments/{planholder}', 'planholderPayments');
         Route::get('plan-payments/{user_plan_uuid}', 'planPayments');
     });
+
+
+    /**
+     * @todo
+     * Advance Payment one month only
+     */
+
 });
