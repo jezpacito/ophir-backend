@@ -12,12 +12,12 @@ trait PaymentTrait
 
     private function processPayment(string $paymentType, int $amount)
     {
-        if ($paymentType === 'Manual' && $amount > 0) {
+        if ($paymentType === 'Manual' && $amount >= 0) {
             $code = Payment::MANUAL_PAYMENT;
 
             return uniqid($code.'-');
         }
-        if ($paymentType === 'Online' && $amount > 0) {
+        if ($paymentType === 'Online' && $amount >= 0) {
             $code = Payment::ONLINE_PAYMENT;
 
             return uniqid($code.'-');
@@ -35,7 +35,7 @@ trait PaymentTrait
             'user_plan_id' => $userPlan->id,
             'amount' => encrypt($amount),
             'referrence_number' => $referenceNumber,
-            'is_paid' => true,
+            // 'is_paid' => true,
         ]);
 
         Log::info('payment created: '.$payment);

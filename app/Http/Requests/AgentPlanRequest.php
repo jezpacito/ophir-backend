@@ -31,6 +31,8 @@ class AgentPlanRequest extends FormRequest
             'plan_id' => 'required|exists:plans,id',
             'referred_by_id' => 'nullable|exists:users,id',
             'billing_occurrence' => 'required|in:'.$billingMethods,
+            'payment_type' => 'required|in:Online,Manual',
+            'amount' => 'required|min:0',
         ];
     }
 }

@@ -49,6 +49,8 @@ class PlanControllerTest extends TestCase
             'plan_id' => Plan::first()->id,
             'billing_occurrence' => PeriodType::ANNUAL->label(),
             'referred_by_id' => $reffered->id,
+            'payment_type' => 'Online',
+            'amount' => 0,
         ];
         $response = $this->post('api/add-plan', $data, ['Accept' => 'application/json']);
         $response->assertStatus(200);

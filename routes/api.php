@@ -51,8 +51,7 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
     /**
      * @todo
      * api for totals dashboards
-     * 
-    */
+     */
 
     /*single route apis*/
     Route::post('add-plan', [PlanController::class, 'addPlan']);
@@ -87,10 +86,8 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
         Route::get('plan-payments/{user_plan_uuid}', 'planPayments');
     });
 
-
     /**
      * @todo
      * Advance Payment one month only
      */
-
 });

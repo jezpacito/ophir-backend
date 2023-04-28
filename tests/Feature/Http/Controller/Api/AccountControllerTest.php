@@ -58,7 +58,6 @@ class AccountControllerTest extends TestCase
         ];
 
         $response = $this->post('api/transfer-plan', $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 

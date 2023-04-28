@@ -8,30 +8,25 @@ use App\Http\Resources\PlanholderResource;
 use App\Http\Resources\PlanResource;
 use App\Models\Plan;
 use App\Models\User;
+use App\Models\UserPlan;
+use Illuminate\Support\Str;
 
 class PlanController extends Controller
 {
     public function addPlan(AgentPlanRequest $request)
     {
+        $user_plan_uuid = Str::orderedUuid();
         $planholder = User::findOrFail($request->user_id);
         $plan = Plan::findOrFail($request->plan_id);
 
         $planholder->userPlans()
-        ->attach($plan, $request->except('plan_id'));
+        ->attach($plan, array_merge($request->except('plan_id', 'payment_type', 'amount'), [
+            'user_plan_uuid' => $user_plan_uuid,
+        ]));
 
-        /**
-         * @todo payment for add plan
-         * payment status should be for approval
-         * payment should be approve of branch oraadmin
-         */
+        $userPlan = UserPlan::where('user_plan_uuid', $user_plan_uuid)->first();
 
-        /**
-         * @todo Transfer Plan
-         * two options
-         * existing planholder'
-         * new planholder
-         * referrel should be the agent if new user
-         */
+        $planholder->subscribeToPlan($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
 
         return response()->json([
             'data' => new PlanholderResource($planholder),

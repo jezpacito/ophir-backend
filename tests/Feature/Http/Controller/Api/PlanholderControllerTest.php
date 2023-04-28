@@ -83,7 +83,6 @@ class PlanholderControllerTest extends TestCase
 
         $response = $this->post('api/planholders', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
-        $response->dump();
 
         $this->assertDatabaseHas('users', [
             'firstname' => $data['firstname'],
