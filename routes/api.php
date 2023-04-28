@@ -49,24 +49,9 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
     Route::apiResource('plans', PlanController::class);
 
     /**
-     * @todo Transfer Account
-     * 
-     * transfer plan should be transferrable
-     * 
+     * api for totals dashboards
      */
 
-    /**
-     * @todo
-     * agent add planholder
-     * payment shoukld be pending
-     * user account for approval
-     */
-    
-     /**
-      * api for totals dashboards
-      */
-
-      
     /*single route apis*/
     Route::post('add-plan', [PlanController::class, 'addPlan']);
     Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);
@@ -82,6 +67,7 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
         Route::get('account-details', 'accountDetails');
         Route::get('referral-tree', 'referralTree');
         Route::put('switch-account', 'switchAccount');
+        Route::post('transfer-plan', 'transferPlan');
     });
 
     /*planholders controllers*/
@@ -96,5 +82,6 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
     Route::controller(PaymentController::class)->group(function () {
         Route::get('payments', 'index');
         Route::get('planholder-payments/{planholder}', 'planholderPayments');
+        Route::get('plan-payments/{user_plan_uuid}', 'planPayments');
     });
 });

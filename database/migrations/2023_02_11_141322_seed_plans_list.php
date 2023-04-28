@@ -41,6 +41,7 @@ return new class extends Migration
                 'term_period' => PeriodType::CURRENT_YEAR_PERIOD,
                 'price' => 3000,
                 'commission' => json_encode($commissions),
+                'is_transferrable' => true,
             ]);
         }
     }

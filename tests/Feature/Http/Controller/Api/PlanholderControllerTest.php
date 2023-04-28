@@ -104,7 +104,6 @@ class PlanholderControllerTest extends TestCase
         $this->assertDatabaseHas('user_plan', [
             'plan_id' => $data['plan_id'],
             'is_active' => true,
-            'is_transferrable' => true,
             'billing_occurrence' => $data['billing_occurrence'],
         ]);
 
@@ -170,7 +169,6 @@ class PlanholderControllerTest extends TestCase
             'referred_by_id' => $user->id,
             'plan_id' => $data['plan_id'],
             'is_active' => true,
-            'is_transferrable' => true,
             'billing_occurrence' => $data['billing_occurrence'],
         ]);
 

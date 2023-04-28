@@ -17,8 +17,8 @@ class PaymentResource extends JsonResource
         return[
             'id' => $this->id,
             'user' => new UserResource($this->planholder),
-            'payment_uuid' => $this->payment_uuid,
             'user_plan_id' => new UserPlanResource($this->userPlan),
+            'payment_uuid' => $this->payment_uuid,
             'amount' => $this->amount,
             'referrence_number' => $this->referrence_number,
             'is_paid' => $this->is_paid,

@@ -6,9 +6,11 @@ use App\Models\Branch;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\UserPlan;
 use App\Types\PeriodType;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class AccountControllerTest extends TestCase
@@ -19,6 +21,45 @@ class AccountControllerTest extends TestCase
     {
         parent::setUp();
         $this->seed();
+    }
+
+    public function test_transferPlan()
+    {
+        /**planholder active to agent role */
+        $planholder = User::factory()->create([
+            'branch_id' => Branch::first()->id,
+        ]);
+        $planholder->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]); //planholder, agent
+        $planholder->roles()->attach([Role::ofName(Role::ROLE_AGENT)->id], [
+            'is_active' => false,
+        ]);
+        $this->actingAs($planholder);
+
+        $plan = Plan::first();
+        $uuid = Str::orderedUuid();
+        $planholder->userPlans()->attach($plan,
+            [
+                'billing_occurrence' => 'Yearly',
+                'referred_by_id' => User::first()->id,
+                'user_plan_uuid' => $uuid,
+            ]);
+
+        $userPlan = UserPlan::whereUserPlanUuid($uuid)->first();
+        $planholder->subscribeToPlan($userPlan, (int) 100, (string) 'Manual', $planholder);
+
+        /**receiver of plan*/
+        $receiver = User::factory()->create([
+            'branch_id' => Branch::first()->id,
+        ]);
+
+        $data = [
+            'user_id' => $receiver->id,
+            'user_plan_uuid' => $uuid,
+        ];
+
+        $response = $this->post('api/transfer-plan', $data, ['Accept' => 'application/json']);
+        $response->dump();
+        $response->assertStatus(200);
     }
 
     public function test_account_details()

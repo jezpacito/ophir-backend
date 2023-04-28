@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountRequest;
+use App\Http\Requests\TransferPlanRequest;
 use App\Http\Resources\PlanholderResource;
 use App\Http\Resources\UserPlanResource;
 use App\Http\Resources\UserResource;
@@ -11,9 +12,31 @@ use App\Models\User;
 use App\Models\UserPlan;
 use App\Models\UserRole;
 use Illuminate\Support\Facades\DB as FacadesDB;
+use Illuminate\Support\Facades\Response;
 
 class AccountController extends Controller
 {
+    public function transferPlan(TransferPlanRequest $request)
+    {
+        //@todo  refactor to custom validation
+        $userPlan = UserPlan::where('user_plan_uuid', $request->user_plan_uuid)->first();
+        if (! $userPlan->plan->is_transferrable) {
+            return Response::json([
+                'success' => false,
+                'message' => 'Plan is Non-Transferrable!',
+            ], 422);
+        }
+
+        //transfering plan
+        $userPlan->update([
+            'user_id' => $request->user_id,
+        ]);
+
+        return response()->json([
+            'data' => new UserPlanResource($userPlan),
+        ]);
+    }
+
     public function referralTree()
     {
         $referrals = UserPlan::ofReferredBy(auth()->user()->id)->paginate(20);

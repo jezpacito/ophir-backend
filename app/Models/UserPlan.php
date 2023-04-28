@@ -36,6 +36,11 @@ class UserPlan extends Model
         return $this->belongsTo(User::class, 'referred_by_id', 'id');
     }
 
+    public function payments()
+    {
+        return $this->hasMany(Payment::class);
+    }
+
     /**
      * Scope a query to only include users of a given type.
      */

@@ -23,21 +23,15 @@ class PlanController extends Controller
          * @todo payment for add plan
          * payment status should be for approval
          * payment should be approve of branch oraadmin
-         * 
          */
 
-
-         /**
-          * 
-          * @todo Transfer Plan
-            * two options
-            * existing planholder'
-            * new planholder
-            * referrel should be the agent if new user
-            
-          *
-
-          */
+        /**
+         * @todo Transfer Plan
+         * two options
+         * existing planholder'
+         * new planholder
+         * referrel should be the agent if new user
+         */
 
         return response()->json([
             'data' => new PlanholderResource($planholder),

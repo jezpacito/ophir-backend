@@ -60,7 +60,7 @@ trait PlanholderRegistration
             $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
                 'is_active' => false,
             ]);
-            Log::info('created agent accountfor planholder '. json_encode($planholder));
+            Log::info('created agent accountfor planholder '.json_encode($planholder));
         }
     }
 }

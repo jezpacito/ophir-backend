@@ -22,6 +22,7 @@ return new class extends Migration
             $table->boolean('is_active')->default(true);
             $table->integer('term_period')->default(5); // 5 years
             $table->integer('contestability_period')->default(1);  // 1 year
+            $table->boolean('is_transferrable')->default(true);
             $table->timestamps();
         });
     }
