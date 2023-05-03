@@ -191,8 +191,6 @@ class User extends Authenticatable implements HasMedia
 
     /**
      * Get file URL for profile_image
-     *
-     * @return string
      */
     public function getProfileImageAttribute(): string
     {
@@ -201,8 +199,6 @@ class User extends Authenticatable implements HasMedia
 
     /**
      * Get file URL for signature_image
-     *
-     * @return string
      */
     public function getSignatureImageAttribute(): string
     {
@@ -211,8 +207,6 @@ class User extends Authenticatable implements HasMedia
 
     /**
      * Get file URL for marketing tools
-     *
-     * @return string
      */
     public function getMarketingToolsAttribute(): string
     {
@@ -220,8 +214,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return string
-     *
      * @deprecated
      */
     public function getProfileImageUrl(): string
@@ -230,8 +222,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return string
-     *
      * @deprecated
      */
     public function getSignatureImageUrl(): string
@@ -240,8 +230,6 @@ class User extends Authenticatable implements HasMedia
     }
 
     /**
-     * @return string
-     *
      * @deprecated
      */
     public function geMarketingToolsUrl(): string
@@ -262,7 +250,7 @@ class User extends Authenticatable implements HasMedia
     public function userPlans()
     {
         return $this->belongsToMany(Plan::class, 'user_plan')
-        ->withPivot('id', 'user_plan_uuid', 'is_active', 'referred_by_id', 'billing_occurrence');
+            ->withPivot('id', 'user_plan_uuid', 'is_active', 'referred_by_id', 'billing_occurrence');
     }
 
     public function beneficiaries()

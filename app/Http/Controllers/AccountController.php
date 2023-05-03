@@ -47,8 +47,8 @@ class AccountController extends Controller
     public function accountDetails()
     {
         $userRoles = User::ofRoles(Role::$role_users)
-        ->where('id', auth()->user()->id)
-        ->exists();
+            ->where('id', auth()->user()->id)
+            ->exists();
 
         if (! $userRoles) {
             return response()->json([
@@ -68,10 +68,10 @@ class AccountController extends Controller
             'role_id' => $request->role_id,
             'is_active' => false,
         ])
-        ->first();
+            ->first();
 
         $userActiveAccount = UserRole::active()
-        ->first();
+            ->first();
 
         FacadesDB::transaction(function () use ($userActiveAccount, $userRoleAccount) {
             $userActiveAccount->update([

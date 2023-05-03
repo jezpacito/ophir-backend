@@ -90,7 +90,7 @@ class Plan extends Model
     public function userPlans()
     {
         return $this->belongsToMany(User::class, 'user_plan')
-        ->withPivot('id', 'user_plan_uuid', 'is_active', 'referred_by_id', 'billing_occurrence');
+            ->withPivot('id', 'user_plan_uuid', 'is_active', 'referred_by_id', 'billing_occurrence');
     }
 
     /**

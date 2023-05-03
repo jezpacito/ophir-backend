@@ -12,7 +12,7 @@ trait LogsActivityTrait
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-        ->logAll();
+            ->logAll();
     }
 
     public function getDescriptionForEvent(string $eventName): string

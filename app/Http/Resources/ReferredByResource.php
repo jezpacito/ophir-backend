@@ -14,7 +14,7 @@ class ReferredByResource extends JsonResource
      */
     public function toArray($request)
     {
-        return[
+        return [
             'id' => $this->id,
             'branch' => $this->branch,
             'referral_code' => $this->referral_code,

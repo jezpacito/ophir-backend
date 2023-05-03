@@ -39,7 +39,7 @@ class PaymentControllerTest extends TestCase
             ]);
             $planholder->roles()->attach(Role::ofName('Planholder')->id);
             $userPlans = UserPlan::whereIn('user_plan_uuid', [$user_plan_uuid_1, $user_plan_uuid_2])
-            ->get();
+                ->get();
 
             foreach ($userPlans as $userPlan) {
                 $planholder->subscribeToPlan($userPlan, (int) rand(1000, 5000), (string) 'Manual', $planholder);
@@ -68,7 +68,7 @@ class PaymentControllerTest extends TestCase
             ]);
             $planholder->roles()->attach(Role::ofName('Planholder')->id);
             $userPlans = UserPlan::whereIn('user_plan_uuid', [$user_plan_uuid_1, $user_plan_uuid_2])
-            ->get();
+                ->get();
 
             foreach ($userPlans as $userPlan) {
                 $planholder->subscribeToPlan($userPlan, (int) rand(1000, 5000), (string) 'Manual', $planholder);
@@ -97,7 +97,7 @@ class PaymentControllerTest extends TestCase
             ]);
             $planholder->roles()->attach(Role::ofName('Planholder')->id);
             $userPlans = UserPlan::whereIn('user_plan_uuid', [$user_plan_uuid_1, $user_plan_uuid_2])
-            ->get();
+                ->get();
 
             foreach ($userPlans as $userPlan) {
                 $planholder->subscribeToPlan($userPlan, (int) rand(1000, 5000), (string) 'Manual', $planholder);

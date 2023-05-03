@@ -37,8 +37,8 @@ Route::post('login', [SanctumController::class, 'store']);
 
 Route::get('upload-profile', function () {
     User::first()
-    ->addMedia(public_path('demo/test2.jpg'))
-    ->toMediaCollection('profile_image');
+        ->addMedia(public_path('demo/test2.jpg'))
+        ->toMediaCollection('profile_image');
 });
 Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function () {
     /*api resources*/

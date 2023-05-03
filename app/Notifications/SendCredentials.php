@@ -43,10 +43,10 @@ class SendCredentials extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         return (new MailMessage)
-        ->Line('Welcome to Ophir Mortuary Services! ')
+            ->Line('Welcome to Ophir Mortuary Services! ')
             ->line('Username: '.$this->credentials['username'])
             ->line('Temporary Password: '.$this->credentials['password'])
-        ->line('It is advisable to update your password after receiving this email.');
+            ->line('It is advisable to update your password after receiving this email.');
     }
 
     /**

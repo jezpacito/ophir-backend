@@ -25,8 +25,8 @@ class UserController extends Controller
         $adminRoles = Role::$role_users;
 
         $admins = User::ofRoles($adminRoles)
-        ->where('branch_id', $branchId)
-        ->get();
+            ->where('branch_id', $branchId)
+            ->get();
 
         return response()->json([
             'data' => UserResource::collection($admins),
@@ -80,7 +80,6 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */

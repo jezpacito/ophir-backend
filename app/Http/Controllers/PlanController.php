@@ -20,9 +20,9 @@ class PlanController extends Controller
         $plan = Plan::findOrFail($request->plan_id);
 
         $planholder->userPlans()
-        ->attach($plan, array_merge($request->except('plan_id', 'payment_type', 'amount'), [
-            'user_plan_uuid' => $user_plan_uuid,
-        ]));
+            ->attach($plan, array_merge($request->except('plan_id', 'payment_type', 'amount'), [
+                'user_plan_uuid' => $user_plan_uuid,
+            ]));
 
         $userPlan = UserPlan::where('user_plan_uuid', $user_plan_uuid)->first();
 

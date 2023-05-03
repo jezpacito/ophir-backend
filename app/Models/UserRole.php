@@ -36,6 +36,6 @@ class UserRole extends Model
     public function scopeActive(Builder $query): void
     {
         $query->where('user_id', auth()->user()->id)
-        ->where('is_active', true);
+            ->where('is_active', true);
     }
 }
