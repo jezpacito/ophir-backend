@@ -56,7 +56,6 @@ class PlanholderRequest extends FormRequest
                 'facebook' => 'sometimes|string|max:255',
                 'messenger' => 'sometimes|string|max:255',
                 'twitter' => 'sometimes|string|max:255',
-
             ];
         }
     }

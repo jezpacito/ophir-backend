@@ -43,6 +43,7 @@ class UserResource extends JsonResource
             'signature_image' => $this->signature_image,
             'profile_image' => $this->profile_image,
             'marketing_tools' => $this->marketing_tools,
+            'referral_code' => $this->referral_code,
         ];
     }
 }

@@ -43,6 +43,8 @@ class PlanholderResource extends JsonResource
             'twitter' => $this->twitter,
             'email' => $this->email,
             'referral_code' => $this->referral_code,
+            'profile_image' => $this->profile_image,
+            'signature_image' => $this->signature_image,
         ];
     }
 }

@@ -19,6 +19,8 @@ class UserPlanResource extends JsonResource
             'user' => $this->user,
             'plan' => $this->plan,
             'referred_by' => $this->referred_by,
+            'profile_image' => $this->profile_image,
+            'signature_image' => $this->signature_image,
         ];
     }
 }

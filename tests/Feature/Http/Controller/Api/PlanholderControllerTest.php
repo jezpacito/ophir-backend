@@ -132,7 +132,7 @@ class PlanholderControllerTest extends TestCase
 
         $data = [
             'payment_type' => 'Online',
-            'amount' => 100,
+            'amount' => 0,
             'firstname' => $this->faker()->firstName(),
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
@@ -147,6 +147,7 @@ class PlanholderControllerTest extends TestCase
 
         $response = $this->post('api/register-thru-link', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
+        $response->dump();
 
         $this->assertDatabaseHas('users', [
             'firstname' => $data['firstname'],
