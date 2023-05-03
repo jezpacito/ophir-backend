@@ -293,6 +293,6 @@ class User extends Authenticatable implements HasMedia
     public function scopeUnverified(Builder $query): void
     {
         $query->whereIsVerified(false)
-        ->whereIsLocked(false);
+            ->whereIsLocked(false);
     }
 }

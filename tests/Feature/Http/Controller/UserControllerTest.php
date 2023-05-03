@@ -20,6 +20,12 @@ class UserControllerTest extends TestCase
         $this->seed();
     }
 
+    public function test_generate_account_number_to_users()
+    {
+        $this->actingAs(User::factory()->create());
+        // dd(auth()->user());
+    }
+
     public function test_list_of_encoder_staff_per_branch()
     {
         $this->actingAs(User::factory()->create());

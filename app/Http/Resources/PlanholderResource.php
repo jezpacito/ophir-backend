@@ -16,8 +16,8 @@ class PlanholderResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_uuid' => $this->user_uuid,
             'roles' => $this->roles,
-            'beneficiaries' => BeneficiaryResource::collection($this->beneficiaries),
             'plans' => $this->userPlans,
             'branch' => $this->branch,
             'username' => $this->username,
@@ -45,6 +45,7 @@ class PlanholderResource extends JsonResource
             'referral_code' => $this->referral_code,
             'profile_image' => $this->profile_image,
             'signature_image' => $this->signature_image,
+            'beneficiaries' => BeneficiaryResource::collection($this->beneficiaries),
         ];
     }
 }
