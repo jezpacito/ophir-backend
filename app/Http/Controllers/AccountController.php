@@ -18,7 +18,6 @@ class AccountController extends Controller
 {
     public function transferPlan(TransferPlanRequest $request)
     {
-        //@todo  refactor to custom validation
         $userPlan = UserPlan::where('user_plan_uuid', $request->user_plan_uuid)->first();
         if (! $userPlan->plan->is_transferrable) {
             return Response::json([
@@ -27,7 +26,6 @@ class AccountController extends Controller
             ], 422);
         }
 
-        //transfering plan
         $userPlan->update([
             'user_id' => $request->user_id,
         ]);
