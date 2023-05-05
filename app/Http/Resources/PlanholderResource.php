@@ -46,6 +46,7 @@ class PlanholderResource extends JsonResource
             'profile_image' => $this->profile_image,
             'signature_image' => $this->signature_image,
             'beneficiaries' => BeneficiaryResource::collection($this->beneficiaries),
+            'payment_account' => $this->paymentAccountRegistration,
         ];
     }
 }

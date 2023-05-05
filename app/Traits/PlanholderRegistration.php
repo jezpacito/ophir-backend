@@ -56,11 +56,11 @@ trait PlanholderRegistration
 
             Log::info('attached plan : ');
 
-            /**create agent account for planholder */
-            $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
-                'is_active' => false,
-            ]);
-            Log::info('created agent accountfor planholder '.json_encode($planholder));
+            /**create agent account for planholder REMOVE*/
+            // $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
+            //     'is_active' => false,
+            // ]);
+            // Log::info('created agent accountfor planholder '.json_encode($planholder));
         }
     }
 }

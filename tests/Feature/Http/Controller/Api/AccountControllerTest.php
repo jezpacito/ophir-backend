@@ -23,6 +23,23 @@ class AccountControllerTest extends TestCase
         $this->seed();
     }
 
+
+    public function test_activate_agent_account()
+    {
+        $planholder = User::factory()->create([
+            'branch_id' => Branch::first()->id,
+        ]);
+        $this->actingAs($planholder);
+
+        $data = [
+            'user_id' =>$planholder->id,
+            'payment_type' => 'account registration',
+            'registration_fee' =>150,
+        ];
+
+        $response = $this->post('api/activate-agent-account', $data, ['Accept' => 'application/json']);
+        $response->assertStatus(200);
+    }
     public function test_transferPlan()
     {
         /**planholder active to agent role */

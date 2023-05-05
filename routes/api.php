@@ -69,6 +69,7 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
         Route::get('referral-tree', 'referralTree');
         Route::put('switch-account', 'switchAccount');
         Route::post('transfer-plan', 'transferPlan');
+        Route::post('activate-agent-account', 'activateAgentAccount');
     });
 
     /*planholders controllers*/

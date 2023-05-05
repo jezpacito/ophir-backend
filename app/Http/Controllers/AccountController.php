@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\AccountRequest;
+use App\Http\Requests\ActivateAgentAccountRequest;
 use App\Http\Requests\TransferPlanRequest;
 use App\Http\Resources\PlanholderResource;
 use App\Http\Resources\UserPlanResource;
 use App\Http\Resources\UserResource;
+use App\Models\PaymentAccountRegistration;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserPlan;
@@ -16,6 +18,22 @@ use Illuminate\Support\Facades\Response;
 
 class AccountController extends Controller
 {
+    public function activateAgentAccount(ActivateAgentAccountRequest $request)
+    {
+        $planholder = User::findOrFail($request->user_id);
+        //creating agent account
+        $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
+            'is_active' => false,
+        ]);
+
+        //adding payment
+        PaymentAccountRegistration::create($request->validated());
+
+        return response()->json([
+            'data' => new PlanholderResource(auth()->user()),
+        ]);
+    }
+
     public function transferPlan(TransferPlanRequest $request)
     {
         $userPlan = UserPlan::where('user_plan_uuid', $request->user_plan_uuid)->first();

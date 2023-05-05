@@ -110,11 +110,7 @@ class PlanholderControllerTest extends TestCase
             'role_id' => Role::ofName($data['role'])->id,
             'is_active' => true,
         ]);
-
-        $this->assertDatabaseHas('user_roles', [
-            'role_id' => Role::ofName(Role::ROLE_AGENT)->id,
-            'is_active' => false,
-        ]);
+     
     }
 
     /**
@@ -176,9 +172,6 @@ class PlanholderControllerTest extends TestCase
             'is_active' => true,
         ]);
 
-        $this->assertDatabaseHas('user_roles', [
-            'role_id' => Role::ofName(Role::ROLE_AGENT)->id,
-            'is_active' => false,
-        ]);
+       
     }
 }

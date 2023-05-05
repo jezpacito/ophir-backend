@@ -263,6 +263,11 @@ class User extends Authenticatable implements HasMedia
         return $this->hasMany(Payment::class);
     }
 
+    public function paymentAccountRegistration()
+    {
+        return $this->hasMany(PaymentAccountRegistration::class);
+    }
+
     public function setPasswordAttribute($value)
     {
         $this->attributes['password'] = Hash::make($value);
