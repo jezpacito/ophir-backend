@@ -54,6 +54,10 @@ class Plan extends Model
 
     const ST_CLAIRE = 'St. Claire';
 
+    const DAISY = 'Daisy';
+
+    const Lily = 'Lily';
+
     /** BILLING METHODS */
     const ANNUAL = 'Annual';
 
@@ -66,18 +70,18 @@ class Plan extends Model
     protected $fillable = [
         'name',
         'description',
-        'price',
         'commission',
         'is_active',
         'term_period',
         'contestability_period',
         'is_transferrable',
+        'pricing',
+        'contract_price',
     ];
 
     public static $plans = [
         self::ST_MERCY,
         self::ST_FERDINAND,
-        self::ST_CLAIRE,
     ];
 
     public static $billingMethod = [
