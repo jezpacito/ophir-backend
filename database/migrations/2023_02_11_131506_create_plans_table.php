@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->integer('contract_price');
-            $table->json('pricing')->comment('billingOccurence and plan amount');
+            $table->json('pricing')->comment('billingOccurence and plan amount')->nullable();
             $table->json('commission')->nullable()->comment('position and commission amount');
             $table->boolean('is_active')->default(true);
             $table->integer('term_period')->default(5); // 5 years

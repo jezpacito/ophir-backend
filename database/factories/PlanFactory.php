@@ -19,7 +19,7 @@ class PlanFactory extends Factory
         return [
             'name' => $this->faker->safeColorName(),
             'description' => $this->faker->paragraph(),
-            'price' => $this->faker->numberBetween(10000, 9000),
+            'contract_price' => $this->faker->numberBetween(10000, 9000),
             'term_period' => $this->faker->numberBetween(1, 5),
         ];
     }

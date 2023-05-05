@@ -20,7 +20,6 @@ return new class extends Migration
             $table->foreignId('plan_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('referred_by_id')->nullable()->references('id')->nullOnDelete()->on('users')->comment('referred_by');
             $table->boolean('is_active')->default(true);
-            // $table->boolean('is_transferrable')->default(true);
             $table->string('billing_occurrence')->comment('Monthly, Yearly, Quarterly, Semi-Annually, Annual')->nullable();
             $table->timestamps();
         });

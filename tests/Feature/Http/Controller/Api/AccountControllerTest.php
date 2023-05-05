@@ -95,7 +95,7 @@ class AccountControllerTest extends TestCase
         foreach ($users as $user) {
             $user = User::find($user['id']);
             $user->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]);
-            $user->userPlans()->attach(Plan::ofName(Plan::ST_CLAIRE)->id, [
+            $user->userPlans()->attach(Plan::ofName(Plan::ST_MERCY)->id, [
                 'billing_occurrence' => PeriodType::ANNUAL->label(),
                 'referred_by_id' => $agent->id,
             ]);

@@ -33,6 +33,7 @@ class AgentPlanRequest extends FormRequest
             'billing_occurrence' => 'required|in:'.$billingMethods,
             'payment_type' => 'required|in:Online,Manual',
             'amount' => 'required|min:0',
+
         ];
     }
 }
