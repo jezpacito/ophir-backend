@@ -7,7 +7,7 @@ use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Facades\Response;
 
-class MertixController extends Controller
+class MetrixController extends Controller
 {
     public function totalCounts()
     {
