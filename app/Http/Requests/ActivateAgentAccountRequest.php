@@ -26,8 +26,8 @@ class ActivateAgentAccountRequest extends FormRequest
         return [
             'user_id' => 'required|exists:users,id',
             'payment_type' => 'required|string|max:255',
-            'description' =>'sometimes|string|max:255',
-            'registration_fee' =>'required|integer|min:150',
+            'description' => 'sometimes|string|max:255',
+            'registration_fee' => 'required|integer|min:150',
         ];
     }
 }

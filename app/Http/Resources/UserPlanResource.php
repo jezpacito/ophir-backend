@@ -21,7 +21,7 @@ class UserPlanResource extends JsonResource
             'referred_by' => $this->referred_by,
             'profile_image' => $this->profile_image,
             'signature_image' => $this->signature_image,
-            'roles' => $this->user->roles
+            'roles' => $this->user->roles,
         ];
     }
 }

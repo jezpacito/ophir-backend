@@ -42,8 +42,6 @@ class Role extends Model
 
     const ROLE_MANAGER = 'Manager';
 
-    const ROLE_STAFF = 'Staff';
-
     const ROLE_AGENT = 'Agent';
 
     const ROLE_BRANCH_ADMIN = 'Branch Admin';
@@ -51,7 +49,6 @@ class Role extends Model
     const ROLE_PLANHOLDER = 'Planholder';
 
     public static $role_users = [
-        self::ROLE_STAFF,
         self::ROLE_ADMIN,
         self::ROLE_BRANCH_ADMIN,
 

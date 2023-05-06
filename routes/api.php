@@ -5,6 +5,7 @@ use App\Http\Controllers\ActivityLogController;
 use App\Http\Controllers\Api\SanctumController;
 use App\Http\Controllers\BeneficiaryController;
 use App\Http\Controllers\BranchController;
+use App\Http\Controllers\MertixController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\PlanholderController;
@@ -57,6 +58,7 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
     Route::post('add-plan', [PlanController::class, 'addPlan']);
     Route::post('upload-image/{user}', [UserController::class, 'uploadImage']);
     Route::get('activity-logs', [ActivityLogController::class, 'index']);
+    Route::get('total-counts', [MertixController::class, 'totalCounts']);
 
     /*users controllers*/
     Route::controller(UserController::class)->group(function () {

@@ -136,8 +136,6 @@ class User extends Authenticatable implements HasMedia
 
     const ROLE_MANAGER = 'Manager';
 
-    const ROLE_STAFF = 'Staff';
-
     const ROLE_AGENT = 'Agent';
 
     const ROLE_BRANCH_ADMIN = 'Branch Admin';
