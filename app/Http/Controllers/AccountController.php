@@ -55,7 +55,8 @@ class AccountController extends Controller
 
     public function referralTree()
     {
-        $referrals = UserPlan::ofReferredBy(auth()->user()->id)->paginate(20);
+        $referrals = UserPlan::with('user.roles')
+            ->ofReferredBy(auth()->user()->id)->paginate(20);
 
         return UserPlanResource::collection($referrals)->response()->getData(true);
     }
