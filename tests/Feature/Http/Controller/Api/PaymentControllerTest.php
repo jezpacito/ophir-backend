@@ -122,8 +122,7 @@ class PaymentControllerTest extends TestCase
 
         $data = [
             'user_id' => $planholder->id,
-            'user_plan_uuid' =>  $user_plan_uuid,
-            'billing_option' =>
+            'user_plan_uuid' => $user_plan_uuid,
             'amount' => 999,
             'payment_type' => 'Manual',
         ];
@@ -131,11 +130,10 @@ class PaymentControllerTest extends TestCase
         $user_plan_id = UserPlan::where('user_plan_uuid', $user_plan_uuid)->first();
 
         $response = $this->post('api/make-payment', $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(201);
 
         $this->assertDatabaseHas('payments', [
-            'user_id' =>  $data['user_id'],
+            'user_id' => $data['user_id'],
             'status' => 'pending',
             'user_plan_id' => $user_plan_id->id,
         ]);

@@ -49,14 +49,14 @@ class PaymentController extends Controller
         /* subscription */
         try {
             $userPlan = UserPlan::whereUserPlanUuid($request->user_plan_uuid)->first();
-           $payment =  $planholder->paymentMethod($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
+            $payment = $planholder->paymentMethod($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
         } catch (\Exception $e) {
             Log::error($e);
         }
 
         return Response::json([
             'message' => 'success',
-            'data' => new PaymentResource($payment)
-        ],201);
+            'data' => new PaymentResource($payment),
+        ], 201);
     }
 }

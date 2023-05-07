@@ -35,10 +35,11 @@ trait PaymentTrait
             'user_plan_id' => $userPlan->id,
             'amount' => encrypt($amount),
             'referrence_number' => $referenceNumber,
-            'status' =>'pending'
+            'status' => 'pending',
         ]);
 
         Log::info('payment created: '.$payment);
+
         return $payment;
 
     }

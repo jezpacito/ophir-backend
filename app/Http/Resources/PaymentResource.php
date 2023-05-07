@@ -22,7 +22,7 @@ class PaymentResource extends JsonResource
             'amount' => $this->amount,
             'referrence_number' => $this->referrence_number,
             'is_confirmed_payment' => $this->is_confirmed_payment,
-            'status'=> $this->status,
+            'status' => $this->status,
             'created_at' => $this->created_at,
         ];
     }
