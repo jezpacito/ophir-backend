@@ -92,6 +92,7 @@ class Plan extends Model
         self::MONTHLY,
     ];
 
+
     public function userPlans()
     {
         return $this->belongsToMany(User::class, 'user_plan')
@@ -109,10 +110,4 @@ class Plan extends Model
         return $query->where('name', $name)->first();
     }
 
-    protected function pricing(): Attribute
-    {
-        return Attribute::make(
-            get: fn (string $value) => json_decode($value),
-        );
-    }
 }
