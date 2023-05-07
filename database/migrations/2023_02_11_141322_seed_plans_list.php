@@ -20,21 +20,27 @@ return new class extends Migration
         ],
     ];
 
-    private const PLAN_PRICING = [
-        Plan::ST_FERDINAND => [
-            ['billing_option' => Plan::ANNUAL, 'amount' => 4650],
-            ['billing_option' => Plan::SEMI_ANNUAL, 'amount' => 2300],
-            ['billing_option' => Plan::MONTHLY, 'amount' => 1150],
-            ['billing_option' => Plan::QUARTERLY, 'amount' => 400],
+    private function pricing($plan)
+    {
+        if ($plan === Plan::ST_FERDINAND) {
+            return [
+                'annual' => 4650,
+                'semi_annualy' => 2300,
+                'quarterly' => 1150,
+                'monthly' => 400,
+            ];
+        }
+        if ($plan === Plan::ST_MERCY) {
+            return [
+                'annual' => 22940,
+                'semi_annualy' => 11470,
+                'quarterly' => 5685,
+                'monthly' => 1995,
+            ];
+        }
 
-        ],
-        Plan::ST_MERCY => [
-            ['billing_option' => Plan::ANNUAL, 'amount' => 22940],
-            ['billing_option' => Plan::SEMI_ANNUAL, 'amount' => 11470],
-            ['billing_option' => Plan::MONTHLY, 'amount' => 5685],
-            ['billing_option' => Plan::QUARTERLY, 'amount' => 1995],
-        ],
-    ];
+        return null;
+    }
 
     public function contractPricing($plan)
     {
@@ -58,7 +64,7 @@ return new class extends Migration
         /** @var Plan $plans */
         foreach (Plan::$plans as $plan) {
             $commissions = self::PLANS_COMMISSIONS[$plan];
-            $pricing = self::PLAN_PRICING[$plan];
+            $pricing = $this->pricing($plan);
             $contactPrice = $this->contractPricing($plan);
             Plan::create([
                 'name' => $plan,
