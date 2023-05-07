@@ -3,7 +3,6 @@
 namespace App\Models;
 
 use App\Traits\LogsActivityTrait;
-use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -92,7 +91,6 @@ class Plan extends Model
         self::MONTHLY,
     ];
 
-
     public function userPlans()
     {
         return $this->belongsToMany(User::class, 'user_plan')
@@ -109,5 +107,4 @@ class Plan extends Model
     {
         return $query->where('name', $name)->first();
     }
-
 }

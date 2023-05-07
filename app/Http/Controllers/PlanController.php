@@ -72,7 +72,16 @@ class PlanController extends Controller
      */
     public function update(PlanRequest $request, Plan $plan)
     {
-        $plan->update($request->validated());
+
+        if ($request->has('pricing')) {
+            $pricing = json_encode($request->input('pricing'));
+            $planData = $request->except('pricing');
+            $planData['pricing'] = $pricing;
+        } else {
+            $planData = $request->validated();
+        }
+
+        $plan->update($planData);
 
         return response()->json([
             'data' => new PlanResource($plan),
