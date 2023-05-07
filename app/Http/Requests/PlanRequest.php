@@ -32,27 +32,27 @@ class PlanRequest extends FormRequest
             'commission' => 'sometimes|string',
             'contract_price' => 'sometimes|integer|min:0',
             'pricing' => [
-                'required',
+                'sometimes',
                 'array',
                 'size:4',
             ],
             'pricing.annual' => [
-                'required',
+                'sometimes',
                 'integer',
                 'min:1',
             ],
             'pricing.semi_annualy' => [
-                'required',
+                'sometimes',
                 'integer',
                 'min:1',
             ],
             'pricing.quarterly' => [
-                'required',
+                'sometimes',
                 'integer',
                 'min:1',
             ],
             'pricing.monthly' => [
-                'required',
+                'sometimes',
                 'integer',
                 'min:1',
             ],
