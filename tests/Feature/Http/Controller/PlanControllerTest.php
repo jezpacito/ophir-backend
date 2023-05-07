@@ -124,7 +124,6 @@ class PlanControllerTest extends TestCase
         $plan = Plan::create(array_merge($dataPlan, ['pricing' => json_encode($pricing)]));
 
         $response = $this->put("api/plans/$plan->id", $data, ['Accept' => 'application/json']);
-        $response->dump();
         $response->assertStatus(200);
     }
 }
