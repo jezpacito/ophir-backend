@@ -14,6 +14,16 @@ class PlanResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return[
+            'name' => $this->name,
+            'description'=> $this->description,
+            'commission'=> $this->commission,
+            'is_active'=> $this->is_active,
+            'term_period'=> $this->term_period,
+            'contestability_period'=> $this->contestability_period,
+            'is_transferrable'=> $this->is_transferrable,
+            'pricing'=> json_decode($this->pricing),
+            'contract_price'=> $this->contract_price,
+        ];
     }
 }

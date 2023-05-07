@@ -33,8 +33,6 @@ class PlanRequest extends FormRequest
             'contract_price' => 'sometimes|integer|min:0',
             'pricing' => [
                 'sometimes',
-                'array',
-                'size:4',
             ],
             'pricing.annual' => [
                 'sometimes',
