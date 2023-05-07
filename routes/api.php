@@ -89,6 +89,7 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
         Route::get('payments', 'index');
         Route::get('planholder-payments/{planholder}', 'planholderPayments');
         Route::get('plan-payments/{user_plan_uuid}', 'planPayments');
+        Route::post('make-payment', 'makePayment');
     });
 
     /**

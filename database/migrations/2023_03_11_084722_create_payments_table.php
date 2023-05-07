@@ -22,8 +22,9 @@ return new class extends Migration
             $table->string('payment_uuid');
             $table->unsignedBigInteger('user_plan_id')->nullable();
             $table->string('amount');
-            $table->boolean('is_paid')->default(false);
+            $table->boolean('is_confirmed_payment')->default(false);
             $table->string('referrence_number');
+            $table->string('status')->default('pending')->comment('due date,on-time, delayed,pending');
             $table->timestamps();
         });
     }

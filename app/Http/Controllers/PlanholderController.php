@@ -53,7 +53,7 @@ public function store(PlanholderRequest $request)
     /* subscription */
     try {
         $userPlan = UserPlan::whereUserPlanUuid($user_plan_uuid)->first();
-        $planholder->subscribeToPlan($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
+        $planholder->paymentMethod($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
     } catch (\Exception $e) {
         Log::error($e);
     }

@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PaymentRequest;
 use App\Http\Resources\PaymentResource;
 use App\Models\Payment;
 use App\Models\User;
 use App\Models\UserPlan;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Response;
 
 class PaymentController extends Controller
 {
@@ -31,5 +34,29 @@ class PaymentController extends Controller
         $userPlan = UserPlan::where('user_plan_uuid', $user_plan_uuid)->first();
 
         return PaymentResource::collection($userPlan->payments()->paginate(12))->response()->getData(true);
+    }
+
+    /**
+     * payment for planholders
+     * get latest payment
+     * paano ko malalaman ang
+     *
+     * @return void
+     */
+    public function makePayment(PaymentRequest $request)
+    {
+        $planholder = User::whereId($request->user_id)->first();
+        /* subscription */
+        try {
+            $userPlan = UserPlan::whereUserPlanUuid($request->user_plan_uuid)->first();
+           $payment =  $planholder->paymentMethod($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
+        } catch (\Exception $e) {
+            Log::error($e);
+        }
+
+        return Response::json([
+            'message' => 'success',
+            'data' => new PaymentResource($payment)
+        ],201);
     }
 }

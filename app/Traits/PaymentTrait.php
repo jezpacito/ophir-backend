@@ -24,7 +24,7 @@ trait PaymentTrait
         }
     }
 
-    public function subscribeToPlan(object $userPlan, int $amount, string $paymentType, object $planholder)
+    public function paymentMethod(object $userPlan, int $amount, string $paymentType, object $planholder)
     {
         $referenceNumber = $this->processPayment($paymentType, $amount);
         Log::info('referenceNumber: '.$referenceNumber);
@@ -35,9 +35,11 @@ trait PaymentTrait
             'user_plan_id' => $userPlan->id,
             'amount' => encrypt($amount),
             'referrence_number' => $referenceNumber,
-            // 'is_paid' => true,
+            'status' =>'pending'
         ]);
 
         Log::info('payment created: '.$payment);
+        return $payment;
+
     }
 }

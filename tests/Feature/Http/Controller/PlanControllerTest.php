@@ -81,10 +81,20 @@ class PlanControllerTest extends TestCase
         $this->actingAs(User::factory()->create([
             'is_verified' => false,
         ]));
-        $data = Plan::factory()->make(
+        $dataPlan = Plan::factory()->make(
             ['commission' => json_encode(self::PLANS_COMMISSIONS[Plan::ST_MERCY])]
         )->toArray();
 
+        $pricing = [
+            'pricing' => [
+                'annual' => 100,
+                'semi_annualy' => 50,
+                'quarterly' => 25,
+                'monthly' => 8,
+            ],
+        ];
+
+        $data = array_merge($pricing, $dataPlan);
         $response = $this->post('api/plans', $data, ['Accept' => 'application/json']);
         $response->assertStatus(201);
     }
@@ -97,10 +107,22 @@ class PlanControllerTest extends TestCase
     public function test_update_plan()
     {
         $this->actingAs(User::factory()->create());
-        $plan = Plan::factory()->create();
-        $data = [
-            'name' => 'test',
+        $dataPlan = Plan::factory()->make(
+            ['commission' => json_encode(self::PLANS_COMMISSIONS[Plan::ST_MERCY])]
+        )->toArray();
+
+        $pricing = [
+            'pricing' => [
+                'annual' => 100,
+                'semi_annualy' => 50,
+                'quarterly' => 25,
+                'monthly' => 8,
+            ],
         ];
+
+        $data = array_merge($pricing, $dataPlan);
+        $plan = Plan::create(array_merge($dataPlan, ['pricing' => json_encode($pricing)]));
+
         $response = $this->put("api/plans/$plan->id", $data, ['Accept' => 'application/json']);
 
         $response->assertStatus(200);

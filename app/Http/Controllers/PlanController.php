@@ -26,7 +26,7 @@ class PlanController extends Controller
 
         $userPlan = UserPlan::where('user_plan_uuid', $user_plan_uuid)->first();
 
-        $planholder->subscribeToPlan($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
+        $planholder->paymentMethod($userPlan, (int) $request->amount, (string) $request->payment_type, $planholder);
 
         return response()->json([
             'data' => new PlanholderResource($planholder),
@@ -54,8 +54,11 @@ class PlanController extends Controller
      */
     public function store(PlanRequest $request)
     {
+        $pricing = json_encode($request->pricing);
+        $plan = Plan::create(array_merge($request->except('pricing'), ['pricing' => $pricing]));
+
         return response()->json([
-            'data' => new PlanResource(Plan::create($request->validated())),
+            'data' => new PlanResource($plan),
             'message' => 'success',
         ], 201);
     }

@@ -31,7 +31,31 @@ class PlanRequest extends FormRequest
             'is_transferrable' => 'sometimes|boolean',
             'commission' => 'sometimes|string',
             'contract_price' => 'sometimes|integer|min:0',
-            'pricing' => 'sometimes|string',
+            'pricing' => [
+                'required',
+                'array',
+                'size:4',
+            ],
+            'pricing.annual' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+            'pricing.semi_annualy' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+            'pricing.quarterly' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
+            'pricing.monthly' => [
+                'required',
+                'integer',
+                'min:1',
+            ],
         ];
     }
 }

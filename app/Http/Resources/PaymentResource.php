@@ -21,7 +21,8 @@ class PaymentResource extends JsonResource
             'payment_uuid' => $this->payment_uuid,
             'amount' => $this->amount,
             'referrence_number' => $this->referrence_number,
-            'is_paid' => $this->is_paid,
+            'is_confirmed_payment' => $this->is_confirmed_payment,
+            'status'=> $this->status,
             'created_at' => $this->created_at,
         ];
     }

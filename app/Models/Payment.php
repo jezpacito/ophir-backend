@@ -18,7 +18,8 @@ class Payment extends Model
         'user_plan_id',
         'amount',
         'referrence_number',
-        'is_paid',
+        'is_confirmed_payment',
+        'status',
     ];
 
     const MANUAL_PAYMENT = 'MNL';

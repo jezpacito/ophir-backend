@@ -62,7 +62,7 @@ class AccountControllerTest extends TestCase
             ]);
 
         $userPlan = UserPlan::whereUserPlanUuid($uuid)->first();
-        $planholder->subscribeToPlan($userPlan, (int) 100, (string) 'Manual', $planholder);
+        $planholder->paymentMethod($userPlan, (int) 100, (string) 'Manual', $planholder);
 
         /**receiver of plan*/
         $receiver = User::factory()->create([
