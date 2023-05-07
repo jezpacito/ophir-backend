@@ -78,6 +78,9 @@ class AccountController extends Controller
         ]);
     }
 
+    /****
+     * Unused function
+     */
     public function switchAccount(AccountRequest $request)
     {
         $userRoleAccount = UserRole::where([

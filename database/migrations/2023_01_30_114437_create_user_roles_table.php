@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('role_id')->nullable()->constrained()->nullOnDelete();
-            $table->boolean('is_active')->default(true);
+            $table->boolean('is_active')->default(false);
             $table->timestamps();
         });
     }

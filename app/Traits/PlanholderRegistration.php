@@ -23,17 +23,9 @@ trait PlanholderRegistration
             /* create plan for planholder */
             $plan = Plan::findOrFail($request->plan_id);
 
-            /* is_active column for switching account roles
-             *  whoevers has a is_active===true user_role
-             * would be the default profile after login
-             *
-             * NOTE: should only have one is_active status in user roles
-             */
-
-            $is_active = true;
-            if ($planholder->userPlans()->count() >= 1) {
-                /* is_active column in user_role table */
-                $is_active = false;
+            /* default: pending role for approval account*/
+            if ($planholder->roles()->count() <= 1) {
+                $is_active = true;
             }
 
             /* attach role to user planholder */

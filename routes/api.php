@@ -52,6 +52,8 @@ Route::group(['middleware' => ['auth:sanctum', 'account-verified']], function ()
     /**
      * @todo
      * api for totals dashboards
+     * when transferring account should be the same branch or not?
+     * make payment- planholder
      */
 
     /*single route apis*/

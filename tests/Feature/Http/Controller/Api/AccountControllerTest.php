@@ -121,32 +121,4 @@ class AccountControllerTest extends TestCase
         $response = $this->get('api/referral-tree', ['Accept' => 'application/json']);
         $response->assertStatus(200);
     }
-
-    /**
-     * A basic feature test example.
-     *
-     * @return void
-     */
-    public function test_switch_account_from_planholder_to_agent()
-    {
-        $user = User::factory()->create([
-            'branch_id' => Branch::first()->id,
-        ]);
-        $user->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]); //planholder, agent
-        $user->roles()->attach([Role::ofName(Role::ROLE_AGENT)->id], [
-            'is_active' => false,
-        ]);
-
-        $user->userPlans()->attach(Plan::first(), [
-            'billing_occurrence' => PeriodType::ANNUAL->label(),
-        ]);
-
-        $this->actingAs($user);
-        $data = [
-            'role_id' => Role::ofName(Role::ROLE_AGENT)->id,
-        ];
-
-        $response = $this->put('api/switch-account', $data, ['Accept' => 'application/json']);
-        $response->assertStatus(200);
-    }
 }
