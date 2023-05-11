@@ -50,8 +50,6 @@ class Beneficiary extends Model
         'user_id',
     ];
 
-    const ALLOWED_BENEFICIARIES = 2;
-
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -61,6 +59,6 @@ class Beneficiary extends Model
     {
         $count = self::where('user_id', $user->id)->count();
 
-        return $count >= self::ALLOWED_BENEFICIARIES;
+        return $count >= Beneficiary::ALLOWED_BENEFICIARIES;
     }
 }

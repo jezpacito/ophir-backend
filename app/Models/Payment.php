@@ -22,10 +22,6 @@ class Payment extends Model
         'status',
     ];
 
-    const MANUAL_PAYMENT = 'MNL';
-
-    const ONLINE_PAYMENT = 'OLN';
-
     public function userPlan()
     {
         return $this->belongsTo(UserPlan::class, 'user_plan_id', 'id');

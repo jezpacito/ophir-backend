@@ -1,6 +1,7 @@
 <?php
 
 use App\Models\Role;
+use App\Types\Roles;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -12,16 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        /** @var Role $roles */
-        foreach (Role::$roles as $role) {
+        foreach (Roles::clientUsersOptions() as $role) {
             Role::query()->create([
                 'name' => $role,
                 'guard_name' => 'api',
             ]);
         }
 
-        /** @var Role $roles */
-        foreach (Role::$role_users as $role_users) {
+        foreach (Roles::officeUsersOptions() as $role_users) {
             Role::query()->create([
                 'name' => $role_users,
                 'guard_name' => 'api',

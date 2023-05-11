@@ -13,6 +13,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserPlan;
 use App\Models\UserRole;
+use App\Types\Roles;
 use Illuminate\Support\Facades\DB as FacadesDB;
 use Illuminate\Support\Facades\Response;
 
@@ -22,7 +23,7 @@ class AccountController extends Controller
     {
         $planholder = User::findOrFail($request->user_id);
         //creating agent account
-        $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
+        $planholder->roles()->attach(Role::ofName(Roles::AGENT->label()), [
             'is_active' => false,
         ]);
 
@@ -63,7 +64,7 @@ class AccountController extends Controller
 
     public function accountDetails()
     {
-        $userRoles = User::ofRoles(Role::$role_users)
+        $userRoles = User::ofRoles(Roles::officeUsersOptions())
             ->where('id', auth()->user()->id)
             ->exists();
 

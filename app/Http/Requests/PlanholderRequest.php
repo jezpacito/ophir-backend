@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Plan;
+use App\Types\Payments\PeriodType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PlanholderRequest extends FormRequest
@@ -24,7 +24,7 @@ class PlanholderRequest extends FormRequest
      */
     public function rules()
     {
-        $billingMethods = implode(',', Plan::$billingMethod);
+        $billingMethods = implode(',', PeriodType::billingMethods());
 
         if ($this->isMethod('post')) {
             return [

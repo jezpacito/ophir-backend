@@ -6,7 +6,9 @@ use App\Models\Branch;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
-use App\Types\PeriodType;
+use App\Types\Payments\PeriodType;
+use App\Types\Plans\Types;
+use App\Types\Roles;
 use Tests\TestCase;
 
 class MetrixControllerTest extends TestCase
@@ -33,8 +35,8 @@ class MetrixControllerTest extends TestCase
 
         foreach ($users as $user) {
             $user = User::find($user['id']);
-            $user->roles()->attach([Role::ofName(Role::ROLE_PLANHOLDER)->id]);
-            $user->userPlans()->attach(Plan::ofName(Plan::ST_MERCY)->id, [
+            $user->roles()->attach([Role::ofName(Roles::PLANHOLDER->label())->id]);
+            $user->userPlans()->attach(Plan::ofName(Types::ST_MERCY->label())->id, [
                 'billing_occurrence' => PeriodType::ANNUAL->label(),
                 'referred_by_id' => $agent->id,
             ]);

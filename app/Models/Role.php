@@ -36,32 +36,9 @@ class Role extends Model
 
     protected $fillable = ['name', 'guard_name'];
 
-    const ROLE_ADMIN = 'Admin';
-
-    const ROLE_DIRECTOR = 'Director';
-
-    const ROLE_MANAGER = 'Manager';
-
-    const ROLE_AGENT = 'Agent';
-
-    const ROLE_BRANCH_ADMIN = 'Branch Admin';
-
-    const ROLE_PLANHOLDER = 'Planholder';
-
-    public static $role_users = [
-        self::ROLE_ADMIN,
-        self::ROLE_BRANCH_ADMIN,
-
-    ];
-
-    public static $roles = [
-        self::ROLE_AGENT,
-        self::ROLE_PLANHOLDER,
-    ];
-
     public function users()
     {
-        return $this->belongsToMany(User::class, 'user_roles', 'role_id', 'user_id')->withPivot('is_active');
+        return $this->belongsToMany(Usper::class, 'user_roles', 'role_id', 'user_id')->withPivot('is_active');
     }
 
     /**

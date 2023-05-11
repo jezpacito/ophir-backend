@@ -8,6 +8,7 @@ use App\Http\Resources\UserResource;
 use App\Models\Role;
 use App\Models\User;
 use App\Notifications\SendCredentials;
+use App\Types\Roles;
 use DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +23,7 @@ class UserController extends Controller
      */
     public function userBranch($branchId)
     {
-        $adminRoles = Role::$role_users;
+        $adminRoles = Roles::officeUsersOptions();
 
         $admins = User::ofRoles($adminRoles)
             ->where('branch_id', $branchId)

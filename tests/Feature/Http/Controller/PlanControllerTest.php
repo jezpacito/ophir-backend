@@ -4,9 +4,9 @@ namespace Tests\Feature\Http\Controller;
 
 use App\Models\Branch;
 use App\Models\Plan;
-use App\Models\Role;
 use App\Models\User;
-use App\Types\PeriodType;
+use App\Types\Payments\PeriodType;
+use App\Types\Plans\Types;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -22,20 +22,15 @@ class PlanControllerTest extends TestCase
     }
 
     private const PLANS_COMMISSIONS = [
-        Plan::ST_CLAIRE => [
-            ['position' => Role::ROLE_AGENT, 'amount' => 30],
-            ['position' => Role::ROLE_MANAGER, 'amount' => 20],
-            ['position' => Role::ROLE_DIRECTOR, 'amount' => 10],
+        'St. Ferdinand' => [
+            ['position' => 'Agent', 'amount' => 70],
+            ['position' => 'Manager', 'amount' => 30],
+            ['position' => 'Director', 'amount' => 10],
         ],
-        Plan::ST_FERDINAND => [
-            ['position' => Role::ROLE_AGENT, 'amount' => 70],
-            ['position' => Role::ROLE_MANAGER, 'amount' => 30],
-            ['position' => Role::ROLE_DIRECTOR, 'amount' => 10],
-        ],
-        Plan::ST_MERCY => [
-            ['position' => Role::ROLE_AGENT, 'amount' => 400],
-            ['position' => Role::ROLE_MANAGER, 'amount' => 100],
-            ['position' => Role::ROLE_DIRECTOR, 'amount' => 50],
+        'St. Mercy' => [
+            ['position' => 'Agent', 'amount' => 400],
+            ['position' => 'Manager', 'amount' => 100],
+            ['position' => 'Director', 'amount' => 50],
         ],
     ];
 
@@ -82,7 +77,7 @@ class PlanControllerTest extends TestCase
             'is_verified' => false,
         ]));
         $dataPlan = Plan::factory()->make(
-            ['commission' => json_encode(self::PLANS_COMMISSIONS[Plan::ST_MERCY])]
+            ['commission' => json_encode(self::PLANS_COMMISSIONS[Types::ST_MERCY->label()])]
         )->toArray();
 
         $pricing = [
@@ -108,7 +103,7 @@ class PlanControllerTest extends TestCase
     {
         $this->actingAs(User::factory()->create());
         $dataPlan = Plan::factory()->make(
-            ['commission' => json_encode(self::PLANS_COMMISSIONS[Plan::ST_MERCY])]
+            ['commission' => json_encode(self::PLANS_COMMISSIONS[Types::ST_MERCY->label()])]
         )->toArray();
 
         $pricing = [
