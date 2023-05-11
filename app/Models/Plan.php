@@ -21,7 +21,6 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
  * @property-read int|null $users_count
- *
  * @method static \Database\Factories\PlanFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Plan newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Plan newQuery()
@@ -36,9 +35,25 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Plan wherePrice($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereYearPeriod($value)
- *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $users
- *
+ * @property int $contract_price
+ * @property mixed|null $pricing billingOccurence and plan amount
+ * @property mixed|null $commission position and commission amount
+ * @property int $contestability_period
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read int|null $activities_count
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $userPlans
+ * @property-read int|null $user_plans_count
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan ofName($name)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereCommission($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereContestabilityPeriod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereContractPrice($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan wherePricing($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|Plan whereTermPeriod($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $userPlans
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\User> $userPlans
  * @mixin \Eloquent
  */
 class Plan extends Model
