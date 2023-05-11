@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\UserPlan;
 use App\Notifications\SendCredentials;
+use App\Types\Roles;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
@@ -18,7 +19,7 @@ class PlanholderController extends Controller
     public function index()
     {
         return response()->json([
-            'data' => PlanholderResource::collection(User::ofRoles([Role::ROLE_PLANHOLDER])->get()),
+            'data' => PlanholderResource::collection(User::ofRoles([Roles::PLANHOLDER->label()])->get()),
         ]);
     }
 

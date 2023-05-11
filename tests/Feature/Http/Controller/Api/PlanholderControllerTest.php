@@ -7,6 +7,8 @@ use App\Models\Branch;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
+use App\Types\Payments\PeriodType;
+use App\Types\Roles;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -73,11 +75,11 @@ class PlanholderControllerTest extends TestCase
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
             'email' => $this->faker()->email(),
-            'role' => Role::ROLE_PLANHOLDER,
+            'role' => Roles::PLANHOLDER->label(),
             'beneficiaries' => $beneficiaries->toArray(),
             'branch_id' => Branch::first()->id,
             'plan_id' => Plan::first()->id,
-            'billing_occurrence' => Plan::ANNUAL,
+            'billing_occurrence' => PeriodType::ANNUAL->label(),
             'amount' => 100,
         ];
 
@@ -133,11 +135,11 @@ class PlanholderControllerTest extends TestCase
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
             'email' => $this->faker()->email(),
-            'role' => Role::ROLE_PLANHOLDER,
+            'role' => Roles::PLANHOLDER->label(),
             'beneficiaries' => $beneficiaries->toArray(),
             'branch_id' => Branch::first()->id,
             'plan_id' => Plan::first()->id,
-            'billing_occurrence' => Plan::ANNUAL,
+            'billing_occurrence' => PeriodType::ANNUAL->label(),
             'referral_code' => $user->referral_code, // different from test_add_planholder
         ];
 

@@ -2,6 +2,8 @@
 
 use App\Models\Role;
 use App\Models\User;
+use App\Types\Roles;
+use App\Types\User as TypesUser;
 use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
@@ -22,13 +24,11 @@ return new class extends Migration
         $user = User::factory()->create([
             'username' => 'OPHIR AGENT',
             'password' => 'password',
-            'referral_code' => User::COMPANY_REFFERRAL_CODE,
+            'referral_code' => TypesUser::COMPANY_REFFERRAL_CODE,
         ]);
 
-        $user->roles()->attach([Role::ofName(ROLE::ROLE_AGENT)->id]);
-
-        /** @var Role $roles_users */
-        foreach (Role::$role_users as $role_users) {
+        $user->roles()->attach([Role::ofName(Roles::AGENT->label())->id]);
+        foreach (Roles::officeUsersOptions() as $role_users) {
             $user = User::factory()->create([
 
                 'username' => $role_users,
@@ -38,8 +38,7 @@ return new class extends Migration
             $user->roles()->attach([Role::ofName($role_users)->id]);
         }
 
-        /** @var Role $roles */
-        foreach (Role::$roles as $roles) {
+        foreach (Roles::clientUsersOptions() as $roles) {
             $user = User::factory()->create([
                 'username' => $roles,
                 'password' => 'password',

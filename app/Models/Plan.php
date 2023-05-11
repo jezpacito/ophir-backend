@@ -46,27 +46,6 @@ class Plan extends Model
     use HasFactory;
     use LogsActivityTrait;
 
-    // const CURRENT_YEAR_PERIOD = 5;
-
-    const ST_MERCY = 'St. Mercy';
-
-    const ST_FERDINAND = 'St. Ferdinand';
-
-    const ST_CLAIRE = 'St. Claire';
-
-    const DAISY = 'Daisy';
-
-    const Lily = 'Lily';
-
-    /** BILLING METHODS */
-    const ANNUAL = 'Annual';
-
-    const SEMI_ANNUAL = 'Semi-Annually';
-
-    const QUARTERLY = 'Quarterly';
-
-    const MONTHLY = 'Monthly';
-
     protected $fillable = [
         'name',
         'description',
@@ -77,18 +56,6 @@ class Plan extends Model
         'is_transferrable',
         'pricing',
         'contract_price',
-    ];
-
-    public static $plans = [
-        self::ST_MERCY,
-        self::ST_FERDINAND,
-    ];
-
-    public static $billingMethod = [
-        self::ANNUAL,
-        self::SEMI_ANNUAL,
-        self::QUARTERLY,
-        self::MONTHLY,
     ];
 
     public function userPlans()

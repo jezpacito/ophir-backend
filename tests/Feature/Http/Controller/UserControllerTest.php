@@ -6,6 +6,7 @@ use App\Models\Beneficiary;
 use App\Models\Branch;
 use App\Models\Role;
 use App\Models\User;
+use App\Types\Roles;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -34,7 +35,7 @@ class UserControllerTest extends TestCase
         $user = User::factory()->create([
             'branch_id' => $branch->id,
         ]);
-        $role = Role::ofName(Role::ROLE_ADMIN);
+        $role = Role::ofName(Roles::BRANCH_ADMIN->label());
         $user->roles()->attach($role->id);
 
         $response = $this->get("api/users-branch/$branch->id", ['Accept' => 'application/json']);
@@ -59,7 +60,7 @@ class UserControllerTest extends TestCase
             'middlename' => $this->faker()->lastName(),
             'lastname' => $this->faker()->lastName(),
             'email' => 'test@test.com',
-            'role' => Role::ROLE_ADMIN,
+            'role' => Roles::ADMIN->label(),
             'beneficiaries' => $beneficiaries->toArray(),
         ];
 

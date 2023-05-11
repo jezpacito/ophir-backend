@@ -22,7 +22,7 @@ class PaymentController extends Controller
         return PaymentResource::collection(Payment::paginate(12))->response()->getData(true);
     }
 
-    //get all payments regardless of what time of plan
+    //get all payments regardless of what type of plan
     public function planholderPayments(User $planholder)
     {
         return PaymentResource::collection($planholder->payments()->paginate(12))->response()->getData(true);

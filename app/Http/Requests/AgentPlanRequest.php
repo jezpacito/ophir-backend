@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Plan;
+use App\Types\Payments\PeriodType;
 use Illuminate\Foundation\Http\FormRequest;
 
 class AgentPlanRequest extends FormRequest
@@ -24,7 +24,7 @@ class AgentPlanRequest extends FormRequest
      */
     public function rules()
     {
-        $billingMethods = implode(',', Plan::$billingMethod);
+        $billingMethods = implode(',', PeriodType::billingMethods());
 
         return [
             'user_id' => 'required|exists:users,id',

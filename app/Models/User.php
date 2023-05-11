@@ -128,20 +128,6 @@ class User extends Authenticatable implements HasMedia
     use PaymentTrait;
     use PlanholderRegistration;
 
-    const COMPANY_REFFERRAL_CODE = 'OPHIRAGENT';
-
-    const ROLE_ADMIN = 'Admin';
-
-    const ROLE_DIRECTOR = 'Director';
-
-    const ROLE_MANAGER = 'Manager';
-
-    const ROLE_AGENT = 'Agent';
-
-    const ROLE_BRANCH_ADMIN = 'Branch Admin';
-
-    const ROLE_PLANHOLDER = 'Planholder';
-
     /**
      * The attributes that are mass assignable.
      *

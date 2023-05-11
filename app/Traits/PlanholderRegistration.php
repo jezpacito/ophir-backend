@@ -6,13 +6,14 @@ use App\Models\Beneficiary;
 use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
+use App\Types\Roles;
 use Illuminate\Support\Facades\Log;
 
 trait PlanholderRegistration
 {
     public function registrationDetails($request, $planholder, $user_plan_uuid)
     {
-        if ($request->role === Role::ROLE_PLANHOLDER) {
+        if ($request->role === Roles::PLANHOLDER->label()) {
             /* creating beneficiaries of planholders */
             foreach ($request->beneficiaries as $beneficiary) {
                 Beneficiary::create(array_merge(['user_id' => $planholder->id], $beneficiary));
@@ -49,7 +50,7 @@ trait PlanholderRegistration
             Log::info('attached plan : ');
 
             /**create agent account for planholder REMOVE*/
-            // $planholder->roles()->attach(Role::ofName(ROLE::ROLE_AGENT), [
+            // $planholder->roles()->attach(Role::ofName(Roles::AGENT), [
             //     'is_active' => false,
             // ]);
             // Log::info('created agent accountfor planholder '.json_encode($planholder));
