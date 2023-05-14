@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read \App\Models\Plan|null $plan
  * @property-read \App\Models\User|null $referred_by
  * @property-read \App\Models\User|null $user
+ *
  * @method static Builder|UserPlan newModelQuery()
  * @method static Builder|UserPlan newQuery()
  * @method static Builder|UserPlan ofReferredBy(string $referred_by_id)
@@ -39,10 +40,12 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|UserPlan whereUpdatedAt($value)
  * @method static Builder|UserPlan whereUserId($value)
  * @method static Builder|UserPlan whereUserPlanUuid($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Payment> $payments
+ *
  * @mixin \Eloquent
  */
 class UserPlan extends Model

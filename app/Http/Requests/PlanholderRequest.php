@@ -34,7 +34,7 @@ class PlanholderRequest extends FormRequest
                 'firstname' => 'sometimes|string|max:255',
                 'middlename' => 'sometimes|string|max:255',
                 'lastname' => 'sometimes|string|max:255',
-                'email' => 'sometimes|unique:users,email|string|max:255',
+                'email' => 'sometimes|string|max:255',
                 'role' => 'required|string|exists:roles,name',
                 'referral_code' => 'sometimes|exists:users,referral_code',
                 'plan_id' => 'required|exists:plans,id',

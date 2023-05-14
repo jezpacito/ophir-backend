@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $activities_count
  * @property-read \App\Models\Role|null $role
  * @property-read \App\Models\User|null $user
+ *
  * @method static Builder|UserRole active()
  * @method static Builder|UserRole newModelQuery()
  * @method static Builder|UserRole newQuery()
@@ -30,8 +31,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static Builder|UserRole whereRoleId($value)
  * @method static Builder|UserRole whereUpdatedAt($value)
  * @method static Builder|UserRole whereUserId($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ *
  * @mixin \Eloquent
  */
 class UserRole extends Model

@@ -38,7 +38,7 @@ return new class extends Migration
             $table->string('facebook')->nullable();
             $table->string('messenger')->nullable();
             $table->string('twitter')->nullable();
-            $table->string('email')->unique();
+            $table->string('email')->nullable();
             $table->string('referral_code')->nullable();
             $table->boolean('is_verified')->default(true);
             $table->boolean('is_locked')->default(false);

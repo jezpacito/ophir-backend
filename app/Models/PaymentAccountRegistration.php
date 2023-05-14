@@ -17,6 +17,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property-read \App\Models\User $user
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentAccountRegistration newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentAccountRegistration newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentAccountRegistration query()
@@ -27,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentAccountRegistration whereRegistrationFee($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentAccountRegistration whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PaymentAccountRegistration whereUserId($value)
+ *
  * @mixin \Eloquent
  */
 class PaymentAccountRegistration extends Model

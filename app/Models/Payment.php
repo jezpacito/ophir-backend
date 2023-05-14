@@ -24,6 +24,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property-read int|null $activities_count
  * @property-read \App\Models\User|null $planholder
  * @property-read \App\Models\UserPlan|null $userPlan
+ *
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment newQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Payment query()
@@ -37,8 +38,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUpdatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUserId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Payment whereUserPlanId($value)
+ *
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
  * @property-read \Illuminate\Database\Eloquent\Collection<int, \Spatie\Activitylog\Models\Activity> $activities
+ *
  * @mixin \Eloquent
  */
 class Payment extends Model

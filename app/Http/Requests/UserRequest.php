@@ -27,7 +27,7 @@ class UserRequest extends FormRequest
             'firstname' => 'sometimes|string|max:255',
             'middlename' => 'sometimes|string|max:255',
             'lastname' => 'sometimes|string|max:255',
-            'email' => 'sometimes|unique:users,email|string|max:255',
+            'email' => 'sometimes|string|max:255',
             'role' => 'sometimes|string|exists:roles,name',
             'branch_id' => 'nullable|exists:branches,id',
             'gender' => 'nullable|string|max:50',
