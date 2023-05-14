@@ -24,7 +24,7 @@ trait PlanholderRegistration
             /* create plan for planholder */
             $plan = Plan::findOrFail($request->plan_id);
 
-            /* default: pending role for approval account*/
+            /* default: preapproved role for approval account*/
             if ($planholder->roles()->count() <= 1) {
                 $is_active = true;
             }

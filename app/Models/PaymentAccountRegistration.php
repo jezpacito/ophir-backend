@@ -13,6 +13,7 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $user_id
  * @property string $payment_type
  * @property string|null $description
+ * @property string $status
  * @property int $registration_fee
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -40,6 +41,7 @@ class PaymentAccountRegistration extends Model
         'payment_type',
         'description',
         'registration_fee',
+        'status',
     ];
 
     public function user()

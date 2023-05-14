@@ -6,6 +6,7 @@ use App\Models\Plan;
 use App\Models\Role;
 use App\Models\User;
 use App\Models\UserPlan;
+use App\Types\Payments\PaymentStatus;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
@@ -134,7 +135,7 @@ class PaymentControllerTest extends TestCase
 
         $this->assertDatabaseHas('payments', [
             'user_id' => $data['user_id'],
-            'status' => 'pending',
+            'status' => PaymentStatus::PREAPPROVED->label(),
             'user_plan_id' => $user_plan_id->id,
         ]);
     }

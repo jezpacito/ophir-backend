@@ -3,6 +3,7 @@
 namespace App\Observers;
 
 use App\Models\Payment;
+use App\Types\Payments\PaymentStatus;
 use Illuminate\Support\Str;
 
 class PaymentObserver
@@ -15,6 +16,7 @@ class PaymentObserver
     public function created(Payment $payment)
     {
         $payment->payment_uuid = Str::uuid();
+        $payment->status = PaymentStatus::PREAPPROVED->label();
         $payment->save();
     }
 

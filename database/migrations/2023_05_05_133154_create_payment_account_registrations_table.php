@@ -1,5 +1,6 @@
 <?php
 
+use App\Types\Payments\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -19,6 +20,7 @@ return new class extends Migration
             $table->string('payment_type');
             $table->string('description')->nullable();
             $table->integer('registration_fee');
+            $table->string('status')->default(PaymentStatus::PENDING->label());
             $table->timestamps();
         });
     }

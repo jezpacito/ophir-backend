@@ -1,5 +1,6 @@
 <?php
 
+use App\Types\Payments\PaymentStatus;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -24,7 +25,7 @@ return new class extends Migration
             $table->string('amount');
             $table->boolean('is_confirmed_payment')->default(false);
             $table->string('referrence_number');
-            $table->string('status')->default('pending')->comment('due date,on-time, delayed,pending');
+            $table->string('status')->default(PaymentStatus::PENDING->label());
             $table->timestamps();
         });
     }
