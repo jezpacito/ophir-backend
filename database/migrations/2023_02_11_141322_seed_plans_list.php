@@ -7,52 +7,43 @@ use Illuminate\Database\Migrations\Migration;
 
 return new class extends Migration
 {
-    private const PLANS_COMMISSIONS = [
-        'St. Ferdinand' => [
-            ['position' => 'Agent', 'amount' => 70],
-            ['position' => 'Manager', 'amount' => 30],
-            ['position' => 'Director', 'amount' => 10],
-        ],
-        'St. Mercy' => [
-            ['position' => 'Agent', 'amount' => 400],
-            ['position' => 'Manager', 'amount' => 100],
-            ['position' => 'Director', 'amount' => 50],
-        ],
-    ];
-
-    private function pricing($plan)
+    private function pricingCommission($plan)
     {
-        if ($plan === Types::ST_FERDINAND) {
-            return [
+        if ($plan === Types::ST_FERDINAND->label()) {
+            $pricing = [
                 'annual' => 4650,
                 'semi_annualy' => 2300,
                 'quarterly' => 1150,
                 'monthly' => 400,
             ];
+            $commission = [
+                'agent' => 70,
+                'manager' => 30,
+                'director' => 10,
+            ];
+            $contractPrice = 24000;
+
+            return [$pricing, $commission, $contractPrice];
         }
-        if ($plan === Types::ST_MERCY) {
-            return [
+        if ($plan === Types::ST_MERCY->label()) {
+
+            $pricing = [
                 'annual' => 22940,
                 'semi_annualy' => 11470,
                 'quarterly' => 5685,
                 'monthly' => 1995,
             ];
+            $commission = [
+                'agent' => 400,
+                'manager' => 100,
+                'director' => 50,
+            ];
+            $contractPrice = 119700;
+
+            return [$pricing, $commission, $contractPrice];
         }
 
         return null;
-    }
-
-    public function contractPricing($plan)
-    {
-        dd($plan === Types::ST_FERDINAND);
-        if ($plan === Types::ST_FERDINAND) {
-            return 24000;
-        }
-        if ($plan === Types::ST_MERCY) {
-            return 119700;
-        }
-
-        return 0;
     }
 
     /**
@@ -64,15 +55,14 @@ return new class extends Migration
     {
         /** @var Plan $plans */
         foreach (Types::planOptions() as $plan) {
-            $commissions = self::PLANS_COMMISSIONS[$plan];
-            $pricing = $this->pricing($plan);
-            $contactPrice = $this->contractPricing($plan);
+            // $commissions = self::PLANS_COMMISSIONS[$plan];
+            $pricingCommission = $this->pricingCommission($plan);
             Plan::create([
                 'name' => $plan,
-                'contract_price' => $contactPrice,
+                'contract_price' => $pricingCommission[2],
                 'term_period' => PeriodType::CURRENT_YEAR_PERIOD,
-                'commission' => json_encode($commissions),
-                'pricing' => json_encode($pricing),
+                'commission' => json_encode($pricingCommission[1]),
+                'pricing' => json_encode($pricingCommission[0]),
                 'is_transferrable' => true,
             ]);
         }
