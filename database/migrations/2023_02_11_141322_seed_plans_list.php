@@ -44,6 +44,7 @@ return new class extends Migration
 
     public function contractPricing($plan)
     {
+        dd($plan === Types::ST_FERDINAND);
         if ($plan === Types::ST_FERDINAND) {
             return 24000;
         }
