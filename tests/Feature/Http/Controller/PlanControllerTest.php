@@ -76,9 +76,7 @@ class PlanControllerTest extends TestCase
         $this->actingAs(User::factory()->create([
             'is_verified' => false,
         ]));
-        $dataPlan = Plan::factory()->make(
-            ['commission' => json_encode(self::PLANS_COMMISSIONS[Types::ST_MERCY->label()])]
-        )->toArray();
+        $dataPlan = Plan::factory()->make()->toArray();
 
         $pricing = [
             'pricing' => [
@@ -91,6 +89,7 @@ class PlanControllerTest extends TestCase
 
         $data = array_merge($pricing, $dataPlan);
         $response = $this->post('api/plans', $data, ['Accept' => 'application/json']);
+        $response->dump();
         $response->assertStatus(201);
     }
 
