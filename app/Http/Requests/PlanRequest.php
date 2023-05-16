@@ -29,8 +29,18 @@ class PlanRequest extends FormRequest
             'term_period' => 'sometimes|min:0',
             'is_active' => 'sometimes|boolean',
             'is_transferrable' => 'sometimes|boolean',
-            'commission' => 'sometimes|string',
             'contract_price' => 'sometimes|integer|min:0',
+            'commission' => 'sometimes',
+            'commission.position' => [
+                'sometimes',
+                'string',
+                'in:Agent,Manager,Director',
+            ],
+            'comission.amount' => [
+                'sometimes',
+                'integer',
+                'min:0',
+            ],
             'pricing' => [
                 'sometimes',
             ],
